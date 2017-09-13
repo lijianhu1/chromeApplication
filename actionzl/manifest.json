@@ -1,0 +1,52 @@
+{
+  "manifest_version": 2,
+  "name": "亿封助手",
+  "description": "方便您浏览亿封简历！",
+  "version": "1.0",
+  "browser_action": {
+    "default_icon": {
+      "19": "img/icon.png",
+      "38": "img/icon.png"
+    } ,
+    "default_title": "亿封助手",
+    "default_popup": "popup.html"
+  },
+  "icons": {
+    "16": "img/icon.png",
+    "48": "img/icon.png"
+  },
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+  "background": {
+    "scripts": [
+      "js/jquery.js",
+      "js/jquery.cookie.js",
+      "js/zl_background.js",
+      "js/action_background.js",
+      "js/posi_back.js"
+    ]
+  },
+  "permissions": [
+    "http://127.0.0.1:3000/*",
+    "https://*.zhaopin.com/*",
+    "https://*.zhaopin.cn/*",
+    "http://*.yifengjianli.com/*",
+    "http://127.0.0.1:8081/*",
+    "http://192.168.1.189:8083/*",
+    "https://*.12306.cn/*",
+    "cookies",
+    "webRequest",
+    "webRequestBlocking"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["http://127.0.0.1:3000/*","http://127.0.0.1:8081/*"],
+      "js": ["js/jquery.js","js/jquery.cookie.js","js/zl_foreground.js","js/train_fg.js"]
+    },{
+      "matches": ["http://*.yifengjianli.com/*"],
+      "js": ["js/jquery.js","js/jquery.cookie.js","js/action_yifeng.js"]
+    }
+  ],
+   "externally_connectable": {
+     "matches": ["http://127.0.0.1:3000/*","http://192.168.1.210:8084/*"]
+   }
+}

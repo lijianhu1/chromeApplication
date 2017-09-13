@@ -1,0 +1,41 @@
+{
+  "manifest_version": 2,
+  "name": "亿封助手",
+  "description": "方便您使用亿封简历！",
+  "version": "1.0",
+  "browser_action": {
+    "default_icon": {
+      "19": "img/icon19.png",
+      "38": "img/icon38.png"
+    } ,
+    "default_title": "亿封助手",
+    "default_popup": "popup.html"
+  },
+  "icons": {
+    "16": "img/icon.png",
+    "48": "img/icon.png"
+  },
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+  "background": {
+    "scripts": [
+      "js/jquery.js",
+      "js/jquery.cookie.js",
+      "js/zl_background.js"
+    ]
+  },
+
+  "permissions": [
+    "https://*.zhaopin.com/*",
+    "http://*.yifengjianli.com/*",
+    "cookies"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["http://*.yifengjianli.com/*"],
+      "js": ["js/jquery.js","js/jquery.cookie.js","js/action_yifeng.js"]
+    }
+  ],
+   "externally_connectable": {
+     "matches": ["http://*.yifengjianli.com/*"]
+   }
+}

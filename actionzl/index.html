@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <button id="nameBtn">设置</button>
+    <script src="js/jquery.js"></script>
+    <script src="js/jquery.cookie.js"></script>
+    <script>
+        var domhtml = `<!-- begin tab -->
+            <div class="topControl clearfix" style="display: none;">
+            <div style="position: relative;">
+            <div class="leftCon ajaxErr" id="cvAJAXInfoCon">
+            </div>
+            </div>
+            <div class="leftCon">
+            <span id="info" class="infoClass" style="display: none"></span>
+            </div>
+            </div>
+            <!-- end tab -->
+            <div class="mainListCon">
+            <div class="infoCon clearfix">
+            <div class="leftCon leftconfont" id="recordShow">
+            共有<span class="focus">26</span>份简历
+
+            </div>
+            <div class="fl">
+            </div>
+            <div class="toprightCon">
+            查看方式：<span rdmodule="reDetailSimpleFac" id="triggerSD_con"
+            defaultstate="simple"><img src="//img04.zhaopin.cn/rd2/s/images/erd2/blank.gif"
+            border="0" align="absmiddle">
+            <img src="//img04.zhaopin.cn/rd2/s/images/erd2/blank.gif"
+            border="0" align="absmiddle"></span>&nbsp;第<span class='red12px'>1/2</span>页，去
+            <input type="text" value='' name='PageList2' size='2' class='searchnum' id="pageList1" />
+            页&nbsp;&nbsp;<input type='button' value='Go' class='genButton3' onclick='gotoPage($("#pageList1").val())' />
+            </div>
+            </div>
+
+
+            <div class="tableCon">
+            <div style="display: none; text-align: center; margin: 10px 0;">
+            您 没有收到新的简历，到<a href="javascript:SetPosState(3);" onfocus="this.blur()">发布中职位</a>或<a
+            href="javascript:SetPosState(4);" onfocus="this.blur()">发布结束职位</a>中查看。
+            </div>
+            <table width="100%" border="0" cellpadding="0" cellspacing="0" id="zpResumeListTable" class="listTab" style="">
+            <tr class="tabHead">
+            <td class="blankTd"></td>
+            <td width="40"></td>
+            <td  width="52" nowrap>标签</td>
+            <td width="102" style="padding-left: 15px;" nowrap>姓 名</td>
+            <td id="positionAnchor">职位名称</td>
+            <td width="40" nowrap>性别</td>
+            <td width="66" nowrap>工作年限</td>
+            <td width="100" class="toDis" nowrap>
+            <select id="DColumn_sel0"></select></td>
+            <td width="100" nowrap>
+            <select id="DColumn_sel1"></select></td>
+            <td width="100" nowrap>
+            <select id="DColumn_sel2"></select></td>
+            <td width="100" nowrap>
+            <select id="DColumn_sel3"></select></td>
+            <td width="150" nowrap>&nbsp;
+            &nbsp;&nbsp;投递日期
+            </td>
+            </tr>
+            <!--BeginListRecord -->
+            <tr resume-number="JR397255695R90250003000" data-type="1" class="list1"  title="单击一下打开或关闭详细信息"  rdmodule="resumeMoreInfoFac" id="moreinfo_5530367187" resume_bh="" resume_number="1"  resume_source="简历来源:主动投递初次投递:(北京-朝阳区) 投递时间:" re_jobtime='2016-08至今' re_self="1、10年以上行政,人事后勤，档案管理和人力资源工作的经历，对人力资源相关法律、法规、政策熟悉。有销售和培训员工的经验；2、具备网络使用维护经验。熟悉操作ERP数据管理系统；3、熟悉企业社会保险、工伤保险等办理流程，及其他证件的办理审核等；4、熟练使用Office软件：Excel表格制作、Word文档处理、Powerpoint等办公软件；熟悉OA办公自动化软件的操作等；5、工作细致认真，原则性强，考虑问题全面细致，熟悉财务知识及流程；6、具有C1驾照，驾龄6年。"  re_company='北京惠丰佳业汽车销售有限公司' re_jobname='行政人事经理' re_description="负责行政人事全面工作。">
+            <td class="tdCheckbox">
+            <input type="checkbox" data-invited="0" data-isfeedback="true"  id="resoutorsend_5530367187" data-language="1" data-cnname="李柏安"  data-resumebh="JR397255695R90250003000" data-resumenumber="1" data-resguid="5530367187"  name="chkid" dev_name="行政、人事工作多年" userinfo_forsend="李柏安$139725569$860043230@qq.com$17743515319$5530367187$&amp;*&amp;$男$45$本科$JR397255695R90250003000$企业管理 经济管理$汽车/摩托车$1$CC412565829J90250205000$26$北京-朝阳区$17743515319" value="5530367187" onClick="unChkSelectAll('chkall')"  class="smpcheckbox"  data-smpcvid="JR397255695R90250003000_1" data-smpownerid="5530367187" data-smpkpi="M2" data-smpxtable="1"/>
+            </td>
+            <td class="fkt_ico_position">
+            <img id="imgFktIcon-5530367187" alt="反馈通" src="//img02.zhaopin.cn/2014/rd2/img/fkt.png" />
+            </td>
+
+            <td  label="" rdmodule="cvLabelOneFac" id="r_label5530367187" cvname="李柏安" title="" class="td4cvIcon"><span  class="cvLabelColorDot"><span class=" cvLabelBlank"></span></span>
+            </td>
+            <td>
+            <a  style=color:#315aaa isread="0" onclick="javascript:ViewOneResume(this,'0','5530367187');" href="//rd.zhaopin.com/resumepreview/resume/viewone/1/5530367187?resume=5530367187&star=&companyid=41256582&pfd=5020_1014" target="_blank" class="link " id="5530367187">李柏安</a>
+            <img src="//rd2.zhaopin.com/s/images/erd2/blank.gif" photosrc="/pic/2015/10/14/68D167CFE0AC4CCCB1C75B5C2DBE3482.jpg" border="0" class="iconRePhoto" id="photo_5530367187" rdmodule="resumePhotoFac" />
+
+            </td>
+            <td name="pId" jobid="CC412565829J90250205000"> </td>
+            <td>男</td>
+            <td>26</td>
+            <td class="toDis"></td>
+            <td width="100"></td>
+            <td width="100"></td>
+            <td width="100"></td>
+            <td style="display: none;"></td>
+            <td style="display: none;"></td>
+            <td style="display: none;">45</td>
+            <td style="display: none;">北京-朝阳区</td>
+            <td style="display: none;">本科</td>
+            <td style="display: none;">行政人事经理</td>
+            <td style="display: none;">吉林电大 辽宁省党校</td>
+            <td style="display: none;">企业管理 经济管理</td>
+            <td style="display: none;">北京惠丰佳业汽车销售有限公司</td>
+            <td style="display: none;">汽车/摩托车</td>
+
+            <td style="display:none;" title="主动投递">
+            主动投递</td>
+            <td title="8/26/2017 4:38:23 PM">
+
+            &nbsp;&nbsp;
+            08-26 16:38
+            </td>
+            </tr>
+            <!--BeginListRecord -->
+            <tr resume-number="JM041342150R90250000000" data-type="1" class="list2"  title="单击一下打开或关闭详细信息"  rdmodule="resumeMoreInfoFac" id="moreinfo_5530205162" resume_bh="" resume_number="1"  resume_source="简历来源:主动投递初次投递:(北京-朝阳区) 投递时间:" re_jobtime='2017-03至今' re_self="能力描述：1、性格开朗，注重团队凝聚力，善于与人沟通，善于处理应急事.2、善于学习，精力旺盛，思路清晰，感受敏锐；3、工作勤恳，为人稳重，踏实刻苦。为人处世原则性强；4、喜欢在竞争中锻炼自己，能承受较大工作压力； 乐观上进、有较强的组织协调能力与团队精神；5、为人诚实守信，待人随和，对待工作有较强的积极性和责任性，目标明确，能吃苦耐劳；6、 具有较强的社会实践能力，对工作尽职尽则；7、有驾照。"  re_company='瑞安森（北京）国际投资发展有限公司' re_jobname='人事行政主管' re_description="工作描述：	1.带领团队负责全公司各职位招聘，英语、德语、法语、西语、葡语、俄语、业务经理、项目经理、职能类等；
+            2.负责全公司各层员工绩效制度的制定、修改、完善、执行、反馈工作；
+            3.负责新员工培训，在岗员工向心力培训；
+            4.负责中高管级别员工工资核算及基层员工工资审核；
+            5.负责全集团员工离职面谈、调岗、加薪、降薪工作；
+            6.负责处理劳动纠纷和出席劳动仲裁开庭审理；
+            7.人力资源部框架建设；
+            8.领导交办的其他工作及部分行政管理工作；
+            ">
+            <td class="tdCheckbox">
+            <input type="checkbox" data-invited="0" data-isfeedback="true"  id="resoutorsend_5530205162" data-language="1" data-cnname="马新翠"  data-resumebh="JM041342150R90250000000" data-resumenumber="1" data-resguid="5530205162"  name="chkid" dev_name="其他 5年 " userinfo_forsend="马新翠$604134215$446889635@qq.com$13436857911$5530205162$&amp;*&amp;$女$30$本科$JM041342150R90250000000$人力资源管理 贸易经济$贸易/进出口$1$CC412565829J90250205000$7$北京-朝阳区$13436857911" value="5530205162" onClick="unChkSelectAll('chkall')"  class="smpcheckbox"  data-smpcvid="JM041342150R90250000000_1" data-smpownerid="5530205162" data-smpkpi="M2" data-smpxtable="1"/>
+            </td>
+            <td class="fkt_ico_position">
+            <img id="imgFktIcon-5530205162" alt="反馈通" src="//img02.zhaopin.cn/2014/rd2/img/fkt.png" />
+            </td>
+
+            <td  label="" rdmodule="cvLabelOneFac" id="r_label5530205162" cvname="马新翠" title="" class="td4cvIcon"><span  class="cvLabelColorDot"><span class=" cvLabelBlank"></span></span>
+            </td>
+            <td>
+            <a  style=color:#315aaa isread="0" onclick="javascript:ViewOneResume(this,'0','5530205162');" href="//rd.zhaopin.com/resumepreview/resume/viewone/1/5530205162?resume=5530205162&star=&companyid=41256582&pfd=50_2001" target="_blank" class="link " id="5530205162">马新翠</a>
+            <img src="//rd2.zhaopin.com/s/images/erd2/blank.gif" photosrc="/pic/2016/4/25/e6f788c1-6e86-45b9-8253-2fd71222e8fd.jpg" border="0" class="iconRePhoto" id="photo_5530205162" rdmodule="resumePhotoFac" />
+
+            </td>
+            <td name="pId" jobid="CC412565829J90250205000"> </td>
+            <td>女</td>
+            <td>7</td>
+            <td class="toDis"></td>
+            <td width="100"></td>
+            <td width="100"></td>
+            <td width="100"></td>
+            <td style="display: none;"></td>
+            <td style="display: none;"></td>
+            <td style="display: none;">30</td>
+            <td style="display: none;">北京-朝阳区</td>
+            <td style="display: none;">本科</td>
+            <td style="display: none;">人事行政主管</td>
+            <td style="display: none;">北京市对外经济贸易大学 北京市对外经济贸易大学</td>
+            <td style="display: none;">人力资源管理 贸易经济</td>
+            <td style="display: none;">瑞安森（北京）国际投资发展有限公司</td>
+            <td style="display: none;">贸易/进出口</td>
+
+            <td style="display:none;" title="主动投递">
+            主动投递</td>
+            <td title="8/26/2017 12:48:18 PM">
+
+            &nbsp;&nbsp;
+            08-26 12:48
+            </td>
+            </tr>
+            <!--BeginListRecord -->
+            <tr resume-number="JM639221374R90250000000" data-type="1" class="list1"  title="单击一下打开或关闭详细信息"  rdmodule="resumeMoreInfoFac" id="moreinfo_5530123087" resume_bh="" resume_number="1"  resume_source="简历来源:主动投递初次投递:(北京) 投递时间:" re_jobtime='2016-03至今' re_self="从事人事工作2年，其中人事主管1年，负责400人以上人事工作，人事六大模块都有过涉及。较熟悉中国劳动法律法规。人事专业基础扎实，并有招聘管理、员工关系管理、薪酬社保管理方面的工作经验，性格沉稳谦和，吃苦耐劳，踏实认真，责任心强，勤奋努力，乐观向上，抗压力强，逻辑思维清晰，善于与人沟通；"  re_company='中国汇源果汁集团-顺义总厂' re_jobname='人事主管' re_description="1、完善工厂的薪资福利、并有效的组织实施，拟议薪资、福利制度，审核工厂员工工资。
+            2、负责公司内部岗位的社会招聘，对接各大招聘网站、各大院校进行宣传、招聘；分析公司入离职人员信息，提高员工稳定性。
+            3、负责组织本部门人员完成各项工作, 建立建全本部门工作制度、岗位职责。
+            4、负责人员储备、调动 、晋级、任免等，合理配置人力资源。
+            5、完成总经理安排的各项临时性工作。
+            ">
+            <td class="tdCheckbox">
+            <input type="checkbox" data-invited="0" data-isfeedback="true"  id="resoutorsend_5530123087" data-language="1" data-cnname="周磊"  data-resumebh="JM639221374R90250000000" data-resumenumber="1" data-resguid="5530123087"  name="chkid" dev_name="人力资源主管 1年 山东" userinfo_forsend="周磊$663922137$767380101@qq.com$18010387076$5530123087$&amp;*&amp;$男$23$大专$JM639221374R90250000000$市场营销$快速消费品（食品/饮料/烟酒/日化）$1$CC412565829J90250205000$2$北京$18010387076" value="5530123087" onClick="unChkSelectAll('chkall')"  class="smpcheckbox"  data-smpcvid="JM639221374R90250000000_1" data-smpownerid="5530123087" data-smpkpi="M2" data-smpxtable="1"/>
+            </td>
+            <td class="fkt_ico_position">
+            <img id="imgFktIcon-5530123087" alt="反馈通" src="//img02.zhaopin.cn/2014/rd2/img/fkt.png" />
+            </td>
+
+            <td  label="" rdmodule="cvLabelOneFac" id="r_label5530123087" cvname="周磊" title="" class="td4cvIcon"><span  class="cvLabelColorDot"><span class=" cvLabelBlank"></span></span>
+            </td>
+            <td>
+            <a  style=color:#315aaa isread="0" onclick="javascript:ViewOneResume(this,'0','5530123087');" href="//rd.zhaopin.com/resumepreview/resume/viewone/1/5530123087?resume=5530123087&star=&companyid=41256582&pfd=3_201" target="_blank" class="link " id="5530123087">周磊</a>
+            <img src="//rd2.zhaopin.com/s/images/erd2/blank.gif" photosrc="/pic/2017/4/19/A54E4236BE4149429DF7C83E44E2B707.jpg" border="0" class="iconRePhoto" id="photo_5530123087" rdmodule="resumePhotoFac" />
+
+            </td>
+            <td name="pId" jobid="CC412565829J90250205000"> </td>
+            <td>男</td>
+            <td>2</td>
+            <td class="toDis"></td>
+            <td width="100"></td>
+            <td width="100"></td>
+            <td width="100"></td>
+            <td style="display: none;"></td>
+            <td style="display: none;"></td>
+            <td style="display: none;">23</td>
+            <td style="display: none;">北京</td>
+            <td style="display: none;">大专</td>
+            <td style="display: none;">人事主管</td>
+            <td style="display: none;">莱芜职业技术学院</td>
+            <td style="display: none;">市场营销</td>
+            <td style="display: none;">中国汇源果汁集团-顺义总厂</td>
+            <td style="display: none;">快速消费品（食品/饮料/烟酒/日化）</td>
+
+            <td style="display:none;" title="主动投递">
+            主动投递</td>
+            <td title="8/26/2017 10:55:15 AM">
+
+            &nbsp;&nbsp;
+            08-26 10:55
+            </td>
+            </tr>
+            <!--BeginListRecord -->
+            <tr resume-number="JR282146039R90250006000" data-type="1" class="list2"  title="单击一下打开或关闭详细信息"  rdmodule="resumeMoreInfoFac" id="moreinfo_5527725707" resume_bh="" resume_number="1"  resume_source="简历来源:主动投递初次投递:(北京) 投递时间:" re_jobtime='2014-10至2017-04' re_self="工作态度积极、自我调节能力强、处事稳重，为人诚实可靠"  re_company='五色米文化传播有限公司' re_jobname='活动经理' re_description="1、根据客户要求，按预定计划负责项目实施工作的管理执行和协调；
+            2、辅助完成项目的控制及操作， 细化活动执行流程；
+            3、与各供应商对接，沟通活动执行细节；
+            4、配合进行项目总结与项目核算；
+            5、参与部分活动的前期策划，提案工作；
+            6、做好供应商的审核及工作安排
+            7、活动现场执行、舞台搭建、管理、客户沟通、对现场的突发事件
+            做出处理等相关工作；
+            8、确保活动开始前各部门无障碍，整场活动顺利进行；">
+            <td class="tdCheckbox">
+            <input type="checkbox" data-invited="0" data-isfeedback="true"  id="resoutorsend_5527725707" data-language="1" data-cnname="王云磊"  data-resumebh="JR282146039R90250006000" data-resumenumber="1" data-resguid="5527725707"  name="chkid" dev_name="活动执行经理" userinfo_forsend="王云磊$128214603$13811225304@139.com$13811225304$5527725707$&amp;*&amp;$男$31$大专$JR282146039R90250006000$电子科学与技术 体育教育$广告/会展/公关$1$CC412565829J90250207000$12$北京$13811225304" value="5527725707" onClick="unChkSelectAll('chkall')"  class="smpcheckbox"  data-smpcvid="JR282146039R90250006000_1" data-smpownerid="5527725707" data-smpkpi="M2" data-smpxtable="1"/>
+            </td>
+            <td class="fkt_ico_position">
+            <img id="imgFktIcon-5527725707" alt="反馈通" src="//img02.zhaopin.cn/2014/rd2/img/fkt.png" />
+            </td>
+
+            <td  label="" rdmodule="cvLabelOneFac" id="r_label5527725707" cvname="王云磊" title="" class="td4cvIcon"><span  class="cvLabelColorDot"><span class=" cvLabelBlank"></span></span>
+            </td>
+            <td>
+            <a   isread="1" onclick="javascript:ViewOneResume(this,'1','5527725707');" href="//rd.zhaopin.com/resumepreview/resume/viewone/1/5527725707?resume=5527725707&star=&companyid=41256582&pfd=5019_2001" target="_blank" class="link viewedres" id="5527725707">王云磊</a>
+            <img src="//rd2.zhaopin.com/s/images/erd2/blank.gif" photosrc="/pic/2014/3/28/FAB81378EEC942408F769C9989AD2F96.jpg" border="0" class="iconRePhoto" id="photo_5527725707" rdmodule="resumePhotoFac" />
+
+            </td>
+            <td name="pId" jobid="CC412565829J90250207000"> </td>
+            <td>男</td>
+            <td>12</td>
+            <td class="toDis"></td>
+            <td width="100"></td>
+            <td width="100"></td>
+            <td width="100"></td>
+            <td style="display: none;"></td>
+            <td style="display: none;"></td>
+            <td style="display: none;">31</td>
+            <td style="display: none;">北京</td>
+            <td style="display: none;">大专</td>
+            <td style="display: none;">活动经理</td>
+            <td style="display: none;">北京邮电大学 东城职业技术学校</td>
+            <td style="display: none;">电子科学与技术 体育教育</td>
+            <td style="display: none;">五色米文化传播有限公司</td>
+            <td style="display: none;">广告/会展/公关</td>
+
+            <td style="display:none;" title="主动投递">
+            主动投递</td>
+            <td title="8/24/2017 6:39:03 PM">
+
+            &nbsp;&nbsp;
+            08-24 18:39
+            </td>
+            </tr>
+            <!--BeginListRecord -->
+            <tr resume-number="JM111542748R90250001000" data-type="1" class="list1"  title="单击一下打开或关闭详细信息"  rdmodule="resumeMoreInfoFac" id="moreinfo_5526547532" resume_bh="" resume_number="1"  resume_source="简历来源:主动投递初次投递:(北京-海淀区) 投递时间:" re_jobtime='2012-03至今' re_self="工作经历全面，行政，人事，销售，物流操作管理都可以胜任。具有良好的沟通能力，和团队精神。电脑操作熟练。10年以上驾龄，驾驶熟练英文水平一般。"  re_company='红日集团' re_jobname='部门经理' re_description="1，办公设备采购的管理，
+            2，办公室的环境管理，
+            3，办公设备及办公用品的管理
+            4，人力资源规划、
+            5，招聘与配置、
+            6，培训与开发、
+            7，绩效管理、
+            8，薪酬福利管理、
+            9，劳动关系管理。
+            ">
+            <td class="tdCheckbox">
+            <input type="checkbox" data-invited="0" data-isfeedback="true"  id="resoutorsend_5526547532" data-language="1" data-cnname="薛宪忠"  data-resumebh="JM111542748R90250001000" data-resumenumber="1" data-resguid="5526547532"  name="chkid" dev_name="复制职业经理 12年 北京" userinfo_forsend="薛宪忠$611154274$weirxue@sina.com$13801049717$5526547532$&amp;*&amp;$男$48$大专$JM111542748R90250001000$英语 中国语言文化$基金/证券/期货/投资$1$CC412565829J90250205000$17$北京-海淀区$13801049717" value="5526547532" onClick="unChkSelectAll('chkall')"  class="smpcheckbox"  data-smpcvid="JM111542748R90250001000_1" data-smpownerid="5526547532" data-smpkpi="M2" data-smpxtable="1"/>
+            </td>
+            <td class="fkt_ico_position">
+            <img id="imgFktIcon-5526547532" alt="反馈通" src="//img02.zhaopin.cn/2014/rd2/img/fkt.png" />
+            </td>
+
+            <td  label="" rdmodule="cvLabelOneFac" id="r_label5526547532" cvname="薛宪忠" title="" class="td4cvIcon"><span  class="cvLabelColorDot"><span class=" cvLabelBlank"></span></span>
+            </td>
+            <td>
+            <a  style=color:#315aaa isread="0" onclick="javascript:ViewOneResume(this,'0','5526547532');" href="//rd.zhaopin.com/resumepreview/resume/viewone/1/5526547532?resume=5526547532&star=&companyid=41256582&pfd=10_310" target="_blank" class="link " id="5526547532">薛宪忠</a>
+
+            </td>
+            <td name="pId" jobid="CC412565829J90250205000"> </td>
+            <td>男</td>
+            <td>17</td>
+            <td class="toDis"></td>
+            <td width="100"></td>
+            <td width="100"></td>
+            <td width="100"></td>
+            <td style="display: none;"></td>
+            <td style="display: none;"></td>
+            <td style="display: none;">48</td>
+            <td style="display: none;">北京-海淀区</td>
+            <td style="display: none;">大专</td>
+            <td style="display: none;">部门经理</td>
+            <td style="display: none;">北京广播电视大学 中国人民警官大学</td>
+            <td style="display: none;">英语 中国语言文化</td>
+            <td style="display: none;">红日集团</td>
+            <td style="display: none;">基金/证券/期货/投资</td>
+
+            <td style="display:none;" title="主动投递">
+            主动投递</td>
+            <td title="8/24/2017 10:46:07 AM">
+
+            &nbsp;&nbsp;
+            08-24 10:46
+            </td>
+            </tr>
+            <!--BeginListRecord -->
+            <tr resume-number="JM588041104R90250001000" data-type="1" class="list2"  title="单击一下打开或关闭详细信息"  rdmodule="resumeMoreInfoFac" id="moreinfo_5522227732" resume_bh="" resume_number="1"  resume_source="简历来源:主动投递初次投递:(北京) 投递时间:" re_jobtime='2014-01至今' re_self="热爱生活 热爱工作  希望贵公司能够给予机会  一同创造更大价值"  re_company='北京华征永平保洁服务有限公司' re_jobname='行政人事经理' re_description="行政方面：1编制行政部门的年度预算，根据审批后的预算，严格控制行政费用的支出。2编制和完善行政部门的规章制度，细化工作流程，监督各项管理制度的执行情况。3负责行政部门OA的建立和完善。4负责各项会议的组织和相关活动的组织协助，来客的接待工作，以及监督会议内容的执行情况。5负责行政部门行政档案的保管、更新、归档。6负责资质，证书，执照的办理、变更等相关事情。7负责固定资产的管理和日常办公用品的采买和管理 。8更新和完善公司的组织结构和各部门的主要职责。9制定年度工作目标和工作计划。10领导交办的其他事宜。
+            人力资源方面：1编制人事部门的年度预算，分析各项人力成本 控制部门费用支出。2编制和完善人力资源各项管理制度并细化工作流程。3根据年度情况 更新和完善岗位设置和岗位职责。4建立和完善现代人力资源管理模式。（招聘录用 、员工关系、培训、薪酬、绩效等）5宣传企业文化。6制度本部门年度工作目标和工作计划">
+            <td class="tdCheckbox">
+            <input type="checkbox" data-invited="0" data-isfeedback="true"  id="resoutorsend_5522227732" data-language="1" data-cnname="李艳丽"  data-resumebh="JM588041104R90250001000" data-resumenumber="1" data-resguid="5522227732"  name="chkid" dev_name="行政人事经理  4年 北京" userinfo_forsend="李艳丽$658804110$1216445070@qq.com$13581995233$5522227732$&amp;*&amp;$女$27$本科$JM588041104R90250001000$会计学$医疗/护理/美容/保健/卫生服务$1$CC412565829J90250205000$4$北京$13581995233" value="5522227732" onClick="unChkSelectAll('chkall')"  class="smpcheckbox"  data-smpcvid="JM588041104R90250001000_1" data-smpownerid="5522227732" data-smpkpi="M2" data-smpxtable="1"/>
+            </td>
+            <td class="fkt_ico_position">
+            <img id="imgFktIcon-5522227732" alt="反馈通" src="//img02.zhaopin.cn/2014/rd2/img/fkt.png" />
+            </td>
+
+            <td  label="" rdmodule="cvLabelOneFac" id="r_label5522227732" cvname="李艳丽" title="" class="td4cvIcon"><span  class="cvLabelColorDot"><span class=" cvLabelBlank"></span></span>
+            </td>
+            <td>
+            <a  style=color:#315aaa isread="0" onclick="javascript:ViewOneResume(this,'0','5522227732');" href="//rd.zhaopin.com/resumepreview/resume/viewone/1/5522227732?resume=5522227732&star=&companyid=41256582&pfd=5020_1008" target="_blank" class="link " id="5522227732">李艳丽</a>
+
+            </td>
+            <td name="pId" jobid="CC412565829J90250205000"> </td>
+            <td>女</td>
+            <td>4</td>
+            <td class="toDis"></td>
+            <td width="100"></td>
+            <td width="100"></td>
+            <td width="100"></td>
+            <td style="display: none;"></td>
+            <td style="display: none;"></td>
+            <td style="display: none;">27</td>
+            <td style="display: none;">北京</td>
+            <td style="display: none;">本科</td>
+            <td style="display: none;">行政人事经理</td>
+            <td style="display: none;">北京联合大学</td>
+            <td style="display: none;">会计学</td>
+            <td style="display: none;">北京华征永平保洁服务有限公司</td>
+            <td style="display: none;">医疗/护理/美容/保健/卫生服务</td>
+
+            <td style="display:none;" title="主动投递">
+            主动投递</td>
+            <td title="8/22/2017 3:19:11 PM">
+
+            &nbsp;&nbsp;
+            08-22 15:19
+            </td>
+            </tr>
+            <!--BeginListRecord -->
+            <tr resume-number="JR431016256R90250000000" data-type="1" class="list1"  title="单击一下打开或关闭详细信息"  rdmodule="resumeMoreInfoFac" id="moreinfo_5522208457" resume_bh="" resume_number="1"  resume_source="简历来源:主动投递初次投递:(北京-东城区) 投递时间:" re_jobtime='0001-01至今' re_self="1乐观开朗，充满活力，富有激情2.具备较强的抗压能力，敢于吃苦，并可承受高强度和压力的工作。3.熟悉社保业务与流程4.熟悉人事事务5,熟练应用OFFICE软件6.具有业务实操能力7,具备较强的学习能力，能够快速适应环境8,具备良好的职业道德和职业操守"  re_company='' re_jobname='' re_description="">
+            <td class="tdCheckbox">
+            <input type="checkbox" data-invited="0" data-isfeedback="true"  id="resoutorsend_5522208457" data-language="1" data-cnname="张伟"  data-resumebh="JR431016256R90250000000" data-resumenumber="1" data-resguid="5522208457"  name="chkid" dev_name="行政人事经理" userinfo_forsend="张伟$143101625$1043739629@qq.com$13810127713$5522208457$&amp;*&amp;$女$28$大专$JR431016256R90250000000$金融学$-$1$CC412565829J90250205000$无$北京-东城区$13810127713" value="5522208457" onClick="unChkSelectAll('chkall')"  class="smpcheckbox"  data-smpcvid="JR431016256R90250000000_1" data-smpownerid="5522208457" data-smpkpi="M2" data-smpxtable="1"/>
+            </td>
+            <td class="fkt_ico_position">
+            <img id="imgFktIcon-5522208457" alt="反馈通" src="//img02.zhaopin.cn/2014/rd2/img/fkt.png" />
+            </td>
+
+            <td  label="" rdmodule="cvLabelOneFac" id="r_label5522208457" cvname="张伟" title="" class="td4cvIcon"><span  class="cvLabelColorDot"><span class=" cvLabelBlank"></span></span>
+            </td>
+            <td>
+            <a  style=color:#315aaa isread="0" onclick="javascript:ViewOneResume(this,'0','5522208457');" href="//rd.zhaopin.com/resumepreview/resume/viewone/1/5522208457?resume=5522208457&star=&companyid=41256582&pfd=3_201" target="_blank" class="link " id="5522208457">张伟</a>
+
+            </td>
+            <td name="pId" jobid="CC412565829J90250205000"> </td>
+            <td>女</td>
+            <td>无</td>
+            <td class="toDis"></td>
+            <td width="100"></td>
+            <td width="100"></td>
+            <td width="100"></td>
+            <td style="display: none;"></td>
+            <td style="display: none;"></td>
+            <td style="display: none;">28</td>
+            <td style="display: none;">北京-东城区</td>
+            <td style="display: none;">大专</td>
+            <td style="display: none;"></td>
+            <td style="display: none;">北京经济技术职业学院</td>
+            <td style="display: none;">金融学</td>
+            <td style="display: none;"></td>
+            <td style="display: none;">-</td>
+
+            <td style="display:none;" title="主动投递">
+            主动投递</td>
+            <td title="8/22/2017 3:14:25 PM">
+
+            &nbsp;&nbsp;
+            08-22 15:14
+            </td>
+            </tr>
+            <!--BeginListRecord -->
+            <tr resume-number="JR018478557R90000001000" data-type="1" class="list2"  title="单击一下打开或关闭详细信息"  rdmodule="resumeMoreInfoFac" id="moreinfo_5520286007" resume_bh="" resume_number="1"  resume_source="简历来源:主动投递初次投递:(北京-东城区) 投递时间:" re_jobtime='2012-06至2016-03' re_self="本人对待工作认真，仔细，负责。为人塌实;积极主动;善于团队协作及沟通。专长：行政管理，计算机，财务，人事工作，有驾驶本，驾龄10年。"  re_company='北京鼎天投资管理有限公司' re_jobname='人事行政主管' re_description="人事工作：
+            1.员工入职、转正、调岗、晋升、离职等相关手续的办理
+            2. 员工离职面谈，及员工纠纷处理
+            3. 员工内外部档案的管理及相关事宜的处理等
+            4. 负责全部人事报表
+            5. 商业保险及工作居住证的办理
+            6. 负责员工关系的维护，与各部门主管及员工的密切沟通，了解员工满意度
+            7. 每月员工生日会的策划、宣传、组织、实施
+
+            行政工作：
+            8.完善行政的各项规章制度，监督执行，处理各种突发事件
+            9.固定资产的入库、登帐、领用、回收、盘点工作
+            10.工商、银行、电信、物业等部门的外联工作
+            11.保管公司机要证件、物品、印章
+            12.公司装修工作管理和执行
+            13.购置公司的办公用品和日用品
+            14.单位车辆加油、维修、保养费用的审批和报销。管理司机的日常工作
+            15.每年组织公司春游、出国旅游、年会等一系列活动的筹备和管理工作
+            16.每个节假日为单位同事购置节日礼品">
+            <td class="tdCheckbox">
+            <input type="checkbox" data-invited="0" data-isfeedback="true"  id="resoutorsend_5520286007" data-language="1" data-cnname="李冬"  data-resumebh="JR018478557R90000001000" data-resumenumber="1" data-resguid="5520286007"  name="chkid" dev_name="人事行政主管" userinfo_forsend="李冬$101847855$leonli117@sohu.com$13910506107$5520286007$&amp;*&amp;$男$36$本科$JR018478557R90000001000$工商管理$基金/证券/期货/投资$1$CC412565829J90250205000$18$北京-东城区$13910506107" value="5520286007" onClick="unChkSelectAll('chkall')"  class="smpcheckbox"  data-smpcvid="JR018478557R90000001000_1" data-smpownerid="5520286007" data-smpkpi="M2" data-smpxtable="1"/>
+            </td>
+            <td class="fkt_ico_position">
+            <img id="imgFktIcon-5520286007" alt="反馈通" src="//img02.zhaopin.cn/2014/rd2/img/fkt.png" />
+            </td>
+
+            <td  label="" rdmodule="cvLabelOneFac" id="r_label5520286007" cvname="李冬" title="" class="td4cvIcon"><span  class="cvLabelColorDot"><span class=" cvLabelBlank"></span></span>
+            </td>
+            <td>
+            <a  style=color:#315aaa isread="0" onclick="javascript:ViewOneResume(this,'0','5520286007');" href="//rd.zhaopin.com/resumepreview/resume/viewone/1/5520286007?resume=5520286007&star=&companyid=41256582&pfd=5019_2001" target="_blank" class="link " id="5520286007">李冬</a>
+            <a target="_blank"
+            href="//rd.zhaopin.com/resumepreview/resume/viewone/1/5520286007_2?resume=5520286007&star=1&companyid=41256582&pfd=5019_2001" >
+            <img src="//img04.zhaopin.cn/rd2/s/images/erd2/blank.gif" border="0" hspace="5" class="iconHasEng" title="英文简历" /></a>
+            <img src="//rd2.zhaopin.com/s/images/erd2/blank.gif" photosrc="/pic/2016/3/7/3b68cef8-64ae-499a-a726-7dd5e6d609e8.jpg" border="0" class="iconRePhoto" id="photo_5520286007" rdmodule="resumePhotoFac" />
+
+            </td>
+            <td name="pId" jobid="CC412565829J90250205000"> </td>
+            <td>男</td>
+            <td>18</td>
+            <td class="toDis"></td>
+            <td width="100"></td>
+            <td width="100"></td>
+            <td width="100"></td>
+            <td style="display: none;"></td>
+            <td style="display: none;"></td>
+            <td style="display: none;">36</td>
+            <td style="display: none;">北京-东城区</td>
+            <td style="display: none;">本科</td>
+            <td style="display: none;">人事行政主管</td>
+            <td style="display: none;">北京机械工业学院</td>
+            <td style="display: none;">工商管理</td>
+            <td style="display: none;">北京鼎天投资管理有限公司</td>
+            <td style="display: none;">基金/证券/期货/投资</td>
+
+            <td style="display:none;" title="主动投递">
+            主动投递</td>
+            <td title="8/21/2017 11:37:40 PM">
+
+            &nbsp;&nbsp;
+            08-21 23:37
+            </td>
+            </tr>
+            <!--BeginListRecord -->
+            <tr resume-number="JM354557036R90250000000" data-type="1" class="list1"  title="单击一下打开或关闭详细信息"  rdmodule="resumeMoreInfoFac" id="moreinfo_5519817447" resume_bh="" resume_number="1"  resume_source="简历来源:主动投递初次投递:(北京) 投递时间:" re_jobtime='2016-08至今' re_self="您好，我是外语专业学生，曾多次协助外教举办活动（万圣节晚会，英语角，大学生口语大赛），日常英文交流无障碍。现任班级文艺委员及生活部部长。有过房地产，建材市场的工作经历。可以熟练应用计算机软件。"  re_company='文华传媒' re_jobname='英语翻译' re_description="认真细致">
+            <td class="tdCheckbox">
+            <input type="checkbox" data-invited="0" data-isfeedback="true"  id="resoutorsend_5519817447" data-language="1" data-cnname="任飞"  data-resumebh="JM354557036R90250000000" data-resumenumber="1" data-resguid="5519817447"  name="chkid" dev_name="sunshine" userinfo_forsend="任飞$635455703$1939535965@qq.com$18813047806$5519817447$&amp;*&amp;$女$24$本科$JM354557036R90250000000$英语$媒体/出版/影视/文化传播$1$CC412565829J90250207000$1$北京$18813047806" value="5519817447" onClick="unChkSelectAll('chkall')"  class="smpcheckbox"  data-smpcvid="JM354557036R90250000000_1" data-smpownerid="5519817447" data-smpkpi="M2" data-smpxtable="1"/>
+            </td>
+            <td class="fkt_ico_position">
+            <img id="imgFktIcon-5519817447" alt="反馈通" src="//img02.zhaopin.cn/2014/rd2/img/fkt.png" />
+            </td>
+
+            <td  label="" rdmodule="cvLabelOneFac" id="r_label5519817447" cvname="任飞" title="" class="td4cvIcon"><span  class="cvLabelColorDot"><span class=" cvLabelBlank"></span></span>
+            </td>
+            <td>
+            <a  style=color:#315aaa isread="0" onclick="javascript:ViewOneResume(this,'0','5519817447');" href="//rd.zhaopin.com/resumepreview/resume/viewone/1/5519817447?resume=5519817447&star=&companyid=41256582&pfd=3_201" target="_blank" class="link " id="5519817447">任飞</a>
+            <img src="//rd2.zhaopin.com/s/images/erd2/blank.gif" photosrc="/pic/2017/7/11/c6095b4a-026e-47ac-86e4-57397249fa7c.jpg" border="0" class="iconRePhoto" id="photo_5519817447" rdmodule="resumePhotoFac" />
+
+            </td>
+            <td name="pId" jobid="CC412565829J90250207000"> </td>
+            <td>女</td>
+            <td>1</td>
+            <td class="toDis"></td>
+            <td width="100"></td>
+            <td width="100"></td>
+            <td width="100"></td>
+            <td style="display: none;"></td>
+            <td style="display: none;"></td>
+            <td style="display: none;">24</td>
+            <td style="display: none;">北京</td>
+            <td style="display: none;">本科</td>
+            <td style="display: none;">英语翻译</td>
+            <td style="display: none;">北华航天工业学院</td>
+            <td style="display: none;">英语</td>
+            <td style="display: none;">文华传媒</td>
+            <td style="display: none;">媒体/出版/影视/文化传播</td>
+
+            <td style="display:none;" title="主动投递">
+            主动投递</td>
+            <td title="8/21/2017 6:39:58 PM">
+
+            &nbsp;&nbsp;
+            08-21 18:39
+            </td>
+            </tr>
+            <!--BeginListRecord -->
+            <tr resume-number="JM763134024R90250000000" data-type="1" class="list2"  title="单击一下打开或关闭详细信息"  rdmodule="resumeMoreInfoFac" id="moreinfo_5519243207" resume_bh="" resume_number="1"  resume_source="简历来源:主动投递初次投递:(北京) 投递时间:" re_jobtime='2016-04至今' re_self="本人性格稳重踏实，待人诚恳热情，喜欢不断学习，追求卓越，很热爱人力资源工作，从事过猎头助理和人力资源主管的工作，对IT互联网的一些职位有深刻的认识和了解，擅长招聘选拔人才，给公司带来源源不断的创新动力。同时掌握劳动法律相关知识信息，能够帮助公司降低用工风险，预防劳动争议的发生。有薪酬核算经验，熟悉薪酬方面的法律信息和政策。"  re_company='北京互联直通网络科技有限公司' re_jobname='人事主管' re_description="1、招聘，员工入职，离职，转正，晋升等人员异动的处理；
+            2、人事档案管理和更新，劳动合同的订立、变更和解除，另制定兼职劳务协议、合作协议等书面合同文本；
+            3、办理社保公积金相关事宜，如社保新参统，社保公积金增减员，公积金补缴，公积金提取，社保关系外省市转移，社保平均工资申报，公积金跨年清册，社保公积金专用票据打印，企业及员工社保信息定制或变更，申领生育津贴，产检费用报销，领取医保存折，数字证书更新等；
+            4、负责全体员工补充医疗的办理，相关报销事宜的处理。
+            5、负责员工请假休假流程的管控和记录；
+            6、整理考勤表，核算工资；
+            7、负责人事制度的制定、颁布和实施，人事制度的修订、改进和废止；
+            8、根据劳动法律法规规定提出人事意见，预防用工风险，降低用工成本；
+            9、负责公司人力资源信息的上传下达工作；">
+            <td class="tdCheckbox">
+            <input type="checkbox" data-invited="0" data-isfeedback="true"  id="resoutorsend_5519243207" data-language="1" data-cnname="李雪"  data-resumebh="JM763134024R90250000000" data-resumenumber="1" data-resguid="5519243207"  name="chkid" dev_name="人力资源主管 2年 北京" userinfo_forsend="李雪$676313402$18346021482@163.com$15101114606$5519243207$&amp;*&amp;$女$27$本科$JM763134024R90250000000$环境工程$计算机软件$1$CC412565829J90250205000$5$北京$15101114606" value="5519243207" onClick="unChkSelectAll('chkall')"  class="smpcheckbox"  data-smpcvid="JM763134024R90250000000_1" data-smpownerid="5519243207" data-smpkpi="M2" data-smpxtable="1"/>
+            </td>
+            <td class="fkt_ico_position">
+            <img id="imgFktIcon-5519243207" alt="反馈通" src="//img02.zhaopin.cn/2014/rd2/img/fkt.png" />
+            </td>
+
+            <td  label="" rdmodule="cvLabelOneFac" id="r_label5519243207" cvname="李雪" title="" class="td4cvIcon"><span  class="cvLabelColorDot"><span class=" cvLabelBlank"></span></span>
+            </td>
+            <td>
+            <a  style=color:#315aaa isread="0" onclick="javascript:ViewOneResume(this,'0','5519243207');" href="//rd.zhaopin.com/resumepreview/resume/viewone/1/5519243207?resume=5519243207&star=&companyid=41256582&pfd=5019_1008" target="_blank" class="link " id="5519243207">李雪</a>
+            <img src="//rd2.zhaopin.com/s/images/erd2/blank.gif" photosrc="/pic/2017/7/3/1898b8e9-8c05-44d6-b003-8384bb0185f4.jpg" border="0" class="iconRePhoto" id="photo_5519243207" rdmodule="resumePhotoFac" />
+
+            </td>
+            <td name="pId" jobid="CC412565829J90250205000"> </td>
+            <td>女</td>
+            <td>5</td>
+            <td class="toDis"></td>
+            <td width="100"></td>
+            <td width="100"></td>
+            <td width="100"></td>
+            <td style="display: none;"></td>
+            <td style="display: none;"></td>
+            <td style="display: none;">27</td>
+            <td style="display: none;">北京</td>
+            <td style="display: none;">本科</td>
+            <td style="display: none;">人事主管</td>
+            <td style="display: none;">哈尔滨商业大学</td>
+            <td style="display: none;">环境工程</td>
+            <td style="display: none;">北京互联直通网络科技有限公司</td>
+            <td style="display: none;">计算机软件</td>
+
+            <td style="display:none;" title="主动投递">
+            主动投递</td>
+            <td title="8/21/2017 3:28:18 PM">
+
+            &nbsp;&nbsp;
+            08-21 15:28
+            </td>
+            </tr>
+            <!--BeginListRecord -->
+            <tr resume-number="JM762084428R90250000000" data-type="1" class="list1"  title="单击一下打开或关闭详细信息"  rdmodule="resumeMoreInfoFac" id="moreinfo_5519205422" resume_bh="" resume_number="1"  resume_source="简历来源:主动投递初次投递:(北京-朝阳区) 投递时间:" re_jobtime='2016-04至2017-04' re_self=""  re_company='北京友鹏至杰市场顾问有限公司' re_jobname='项目执行' re_description="Yupevents是一家专业的会务管理公司，其项目主要分汽车、IT的会议策划执行管理
+            我所在的则是专门服务于西门子的小组，重要工作为场地勘察，后勤管理，酒店管理等
+            负责协调项目物料的制作与管理，
+            联络和管理各类活动相关的供应商">
+            <td class="tdCheckbox">
+            <input type="checkbox" data-invited="0" data-isfeedback="true"  id="resoutorsend_5519205422" data-language="1" data-cnname="王海洋"  data-resumebh="JM762084428R90250000000" data-resumenumber="1" data-resguid="5519205422"  name="chkid" dev_name="活动策划 11年 北京" userinfo_forsend="王海洋$676208442$18511755003@163.com$18511755003$5519205422$&amp;*&amp;$男$31$大专$JM762084428R90250000000$广告学$媒体/出版/影视/文化传播$1$CC412565829J90250207000$10$北京-朝阳区$18511755003" value="5519205422" onClick="unChkSelectAll('chkall')"  class="smpcheckbox"  data-smpcvid="JM762084428R90250000000_1" data-smpownerid="5519205422" data-smpkpi="M2" data-smpxtable="1"/>
+            </td>
+            <td class="fkt_ico_position">
+            <img id="imgFktIcon-5519205422" alt="反馈通" src="//img02.zhaopin.cn/2014/rd2/img/fkt.png" />
+            </td>
+
+            <td  label="" rdmodule="cvLabelOneFac" id="r_label5519205422" cvname="王海洋" title="" class="td4cvIcon"><span  class="cvLabelColorDot"><span class=" cvLabelBlank"></span></span>
+            </td>
+            <td>
+            <a  style=color:#315aaa isread="0" onclick="javascript:ViewOneResume(this,'0','5519205422');" href="//rd.zhaopin.com/resumepreview/resume/viewone/1/5519205422?resume=5519205422&star=&companyid=41256582&pfd=3_201" target="_blank" class="link " id="5519205422">王海洋</a>
+            <img src="//rd2.zhaopin.com/s/images/erd2/blank.gif" photosrc="/pic/2016/8/6/77470C0AF0BE48E3993079D691A985D3.jpg" border="0" class="iconRePhoto" id="photo_5519205422" rdmodule="resumePhotoFac" />
+
+            </td>
+            <td name="pId" jobid="CC412565829J90250207000"> </td>
+            <td>男</td>
+            <td>10</td>
+            <td class="toDis"></td>
+            <td width="100"></td>
+            <td width="100"></td>
+            <td width="100"></td>
+            <td style="display: none;"></td>
+            <td style="display: none;"></td>
+            <td style="display: none;">31</td>
+            <td style="display: none;">北京-朝阳区</td>
+            <td style="display: none;">大专</td>
+            <td style="display: none;">项目执行</td>
+            <td style="display: none;">赤峰学院</td>
+            <td style="display: none;">广告学</td>
+            <td style="display: none;">北京友鹏至杰市场顾问有限公司</td>
+            <td style="display: none;">媒体/出版/影视/文化传播</td>
+
+            <td style="display:none;" title="主动投递">
+            主动投递</td>
+            <td title="8/21/2017 3:20:33 PM">
+
+            &nbsp;&nbsp;
+            08-21 15:20
+            </td>
+            </tr>
+            <!--BeginListRecord -->
+            <tr resume-number="JR486743581R90250000000" data-type="1" class="list2"  title="单击一下打开或关闭详细信息"  rdmodule="resumeMoreInfoFac" id="moreinfo_5518934467" resume_bh="" resume_number="1"  resume_source="简历来源:主动投递初次投递:(北京-丰台区) 投递时间:" re_jobtime='2016-06至2017-06' re_self="多年建筑工程行业行政人事工作经验，对工程类公司（节能、新能源、装饰）业务模式较为熟悉，擅长员工关系、薪酬管理、招聘。"  re_company='北京中实达装饰工程有限公司' re_jobname='行政人事经理' re_description="1、全面负责行政人事相关工作；
+            2、劳动仲裁、风险规避、项目案件诉讼工作；
+            3、协调外埠配合单位的资质相关工作；
+            4、公司资质、建筑资质管理工作；
+            5、其他与行政相关的行政外联工作。
+            ">
+            <td class="tdCheckbox">
+            <input type="checkbox" data-invited="0" data-isfeedback="true"  id="resoutorsend_5518934467" data-language="1" data-cnname="柏茵"  data-resumebh="JR486743581R90250000000" data-resumenumber="1" data-resguid="5518934467"  name="chkid" dev_name="人事行政" userinfo_forsend="柏茵$148674358$momofion@163.com$13141112970$5518934467$&amp;*&amp;$女$35$本科$JR486743581R90250000000$工商管理$家居/室内设计/装饰装潢$1$CC412565829J90250205000$12$北京-丰台区$13141112970" value="5518934467" onClick="unChkSelectAll('chkall')"  class="smpcheckbox"  data-smpcvid="JR486743581R90250000000_1" data-smpownerid="5518934467" data-smpkpi="M2" data-smpxtable="1"/>
+            </td>
+            <td class="fkt_ico_position">
+            <img id="imgFktIcon-5518934467" alt="反馈通" src="//img02.zhaopin.cn/2014/rd2/img/fkt.png" />
+            </td>
+
+            <td  label="" rdmodule="cvLabelOneFac" id="r_label5518934467" cvname="柏茵" title="" class="td4cvIcon"><span  class="cvLabelColorDot"><span class=" cvLabelBlank"></span></span>
+            </td>
+            <td>
+            <a  style=color:#315aaa isread="0" onclick="javascript:ViewOneResume(this,'0','5518934467');" href="//rd.zhaopin.com/resumepreview/resume/viewone/1/5518934467?resume=5518934467&star=&companyid=41256582&pfd=32_201" target="_blank" class="link " id="5518934467">柏茵</a>
+            <img src="//rd2.zhaopin.com/s/images/erd2/blank.gif" photosrc="/pic/2017/3/3/FF5C8AAC73A74F3398C36F40F17E59AA.jpg" border="0" class="iconRePhoto" id="photo_5518934467" rdmodule="resumePhotoFac" />
+
+            </td>
+            <td name="pId" jobid="CC412565829J90250205000"> </td>
+            <td>女</td>
+            <td>12</td>
+            <td class="toDis"></td>
+            <td width="100"></td>
+            <td width="100"></td>
+            <td width="100"></td>
+            <td style="display: none;"></td>
+            <td style="display: none;"></td>
+            <td style="display: none;">35</td>
+            <td style="display: none;">北京-丰台区</td>
+            <td style="display: none;">本科</td>
+            <td style="display: none;">行政人事经理</td>
+            <td style="display: none;">首都经济贸易大学</td>
+            <td style="display: none;">工商管理</td>
+            <td style="display: none;">北京中实达装饰工程有限公司</td>
+            <td style="display: none;">家居/室内设计/装饰装潢</td>
+
+            <td style="display:none;" title="主动投递">
+            主动投递</td>
+            <td title="8/21/2017 2:18:48 PM">
+
+            &nbsp;&nbsp;
+            08-21 14:18
+            </td>
+            </tr>
+            <!--BeginListRecord -->
+            <tr resume-number="JM979049465R90250000000" data-type="1" class="list1"  title="单击一下打开或关闭详细信息"  rdmodule="resumeMoreInfoFac" id="moreinfo_5518464212" resume_bh="" resume_number="1"  resume_source="简历来源:主动投递初次投递:(北京-密云县) 投递时间:" re_jobtime='2015-06至2016-06' re_self=""  re_company='传媒有限公司' re_jobname='项目执行助理' re_description="协助项目主管完成规划的任务 解决突发问题">
+            <td class="tdCheckbox">
+            <input type="checkbox" data-invited="0" data-isfeedback="true"  id="resoutorsend_5518464212" data-language="1" data-cnname="刘迪"  data-resumebh="JM979049465R90250000000" data-resumenumber="1" data-resguid="5518464212"  name="chkid" dev_name="人事信息系统(HRIS)管理 北京" userinfo_forsend="刘迪$697904946$1192358531@qq.com$13436458152$5518464212$&amp;*&amp;$男$21$大专$JM979049465R90250000000$其他$广告/会展/公关$1$CC412565829J90250207000$无$北京-密云县$13436458152" value="5518464212" onClick="unChkSelectAll('chkall')"  class="smpcheckbox"  data-smpcvid="JM979049465R90250000000_1" data-smpownerid="5518464212" data-smpkpi="M2" data-smpxtable="1"/>
+            </td>
+            <td class="fkt_ico_position">
+            <img id="imgFktIcon-5518464212" alt="反馈通" src="//img02.zhaopin.cn/2014/rd2/img/fkt.png" />
+            </td>
+
+            <td  label="" rdmodule="cvLabelOneFac" id="r_label5518464212" cvname="刘迪" title="" class="td4cvIcon"><span  class="cvLabelColorDot"><span class=" cvLabelBlank"></span></span>
+            </td>
+            <td>
+            <a  style=color:#315aaa isread="0" onclick="javascript:ViewOneResume(this,'0','5518464212');" href="//rd.zhaopin.com/resumepreview/resume/viewone/1/5518464212?resume=5518464212&star=&companyid=41256582&pfd=5019_1033" target="_blank" class="link " id="5518464212">刘迪</a>
+
+            </td>
+            <td name="pId" jobid="CC412565829J90250207000"> </td>
+            <td>男</td>
+            <td>无</td>
+            <td class="toDis"></td>
+            <td width="100"></td>
+            <td width="100"></td>
+            <td width="100"></td>
+            <td style="display: none;"></td>
+            <td style="display: none;"></td>
+            <td style="display: none;">21</td>
+            <td style="display: none;">北京-密云县</td>
+            <td style="display: none;">大专</td>
+            <td style="display: none;">项目执行助理</td>
+            <td style="display: none;">北京交通运输职业学院</td>
+            <td style="display: none;">其他</td>
+            <td style="display: none;">传媒有限公司</td>
+            <td style="display: none;">广告/会展/公关</td>
+
+            <td style="display:none;" title="主动投递">
+            主动投递</td>
+            <td title="8/21/2017 12:17:51 PM">
+
+            &nbsp;&nbsp;
+            08-21 12:17
+            </td>
+            </tr>
+            <!--BeginListRecord -->
+            <tr resume-number="JR027133741R90250002000" data-type="1" class="list2"  title="单击一下打开或关闭详细信息"  rdmodule="resumeMoreInfoFac" id="moreinfo_5518198627" resume_bh="" resume_number="1"  resume_source="简历来源:主动投递初次投递:(北京) 投递时间:" re_jobtime='2009-02至今' re_self="   (师范 、法律专业、 高级 人力资源师证书、熟练操作办公软件、驾驶执照 ）    对现代企业人力资源管理模式有系统的了解和实践经验积累，对人力资源战略规划、人才的发现与引进、薪酬设计、绩效考核、岗位培训、福利待遇、公司制度调整、组织与人员调整、员工职业生涯设计等具有一定的实践经验。   熟悉企业品牌梳理及产品定位 、营销推广、传统及新媒体线上线下营销推广、媒介投放　出色的团队管理及协调能力，性格开朗、热情，亲和力强。      已婚已育"  re_company='中视金鑫国际广告（北京）有限公司' re_jobname='行政人事经理' re_description="中视金鑫传播，成立于1996年，是一家为客户提供策划推广、顾客关系行销、公共关系、互动行销、视觉管理、广告制作发布等全方位服务的广告公司。以北京为总部，下属有江苏广告分公司和江苏公关分公司。
+
+
+            2012年10月至今 担任公司 行政人事经理
+
+            人事工作
+
+            根据公司发展规划，制定北京公司及江苏分公司人力资源规划并实施
+            确定或调整北京公司及江苏分公司各岗位人员编制，形成或调整岗位职责说明书
+            根据定岗定编情况，进行招聘需求征询、发布招聘信息、简历搜集、面试组织、人员录用等招聘、补充、优化人员情况
+            对公司的日常考勤、劳动合同签订和续签的监督管理、员工入、离职手续、员工福利发放等相关工作进行统筹安排
+            制定并实施公司人员培训、培养计划，做好人力资源开发与储备
+            制定并实施公司薪酬、福利、绩效管理方案
+            负责员工社保和公积金的增减员
+            做好员工关系管理
+
+
+            行政工作
+
+            负责行文管理，建立行文档案及制度档案，并随时检查、督导制度的执行
+            负责日常接待事务
+            负责文印工作及 印章使用管理及建档
+            负责行政物资档案管理，办公用品、礼品的采购、发放与建档
+            负责综合性文件的起草，完善《员工入职辞退制度》，《请假考勤管理制度》
+            负责组织、协调年会、员工出游活动等集体活动
+            负责网络信息系统及日常办公系统的管理与维护
+            负责行政类会议组织召开及会议纪要形成与实施跟踪 ，定期主持工作例会，并直接汇报总经理
+            定期组织公司员工意见征询，提升公司综合管理水平
+            负责公司办公楼查找洽谈 、签订租赁合同、 装修
+
+
+            大事记
+            主持协调公司融资上市前期准备工作尽职调查等相关工作
+            完成下属公司的注册、增资、开户、人员招聘与配制
+            招聘策略总监 、新媒体总监，资深文案策略 等职位，业绩突出，成功完成转型人才的匹配。
+            熟悉知识产权法，主持并成功注册  公司商标
+            公司微信公众平台 、 微官网 的建立搭建及日常维护 发稿
+
+            2019年2月-2012年10月 高级客户经理
+
+            *与客户无障碍沟通，了解客户需求，制定工作计划，客户日常关系维护；
+            *梳理客户品牌需求与定位、公关推广，参与策划方案、执行方案、创意方案等， 独立 制  作报价表等；编辑撰写新闻稿等。
+            *参与大型提案，媒介投放、tvc创意提案、整合营销方案提报等
+            *市场嗅觉敏锐，及时捕捉市场动态，有较强的数据搜索及分析能力，能够独立思考问题， 对新鲜事物接受较快。
+            * 成功提报签约服务客户有朗诗地产、长城汽车、新日电动车、 杉杉服饰、雅鹿羽绒服、   雪竹服饰、富亚涂料等">
+            <td class="tdCheckbox">
+            <input type="checkbox" data-invited="0" data-isfeedback="true"  id="resoutorsend_5518198627" data-language="1" data-cnname="安艳林"  data-resumebh="JR027133741R90250002000" data-resumenumber="1" data-resguid="5518198627"  name="chkid" dev_name="人事行政经理" userinfo_forsend="安艳林$102713374$anxiao833@sohu.com$13718821695$5518198627$&amp;*&amp;$女$39$本科$JR027133741R90250002000$法学 教育学$广告/会展/公关$1$CC412565829J90250205000$16$北京$13718821695" value="5518198627" onClick="unChkSelectAll('chkall')"  class="smpcheckbox"  data-smpcvid="JR027133741R90250002000_1" data-smpownerid="5518198627" data-smpkpi="M2" data-smpxtable="1"/>
+            </td>
+            <td class="fkt_ico_position">
+            <img id="imgFktIcon-5518198627" alt="反馈通" src="//img02.zhaopin.cn/2014/rd2/img/fkt.png" />
+            </td>
+
+            <td  label="" rdmodule="cvLabelOneFac" id="r_label5518198627" cvname="安艳林" title="" class="td4cvIcon"><span  class="cvLabelColorDot"><span class=" cvLabelBlank"></span></span>
+            </td>
+            <td>
+            <a  style=color:#315aaa isread="0" onclick="javascript:ViewOneResume(this,'0','5518198627');" href="//rd.zhaopin.com/resumepreview/resume/viewone/1/5518198627?resume=5518198627&star=&companyid=41256582&pfd=3_201" target="_blank" class="link " id="5518198627">安艳林</a>
+
+            </td>
+            <td name="pId" jobid="CC412565829J90250205000"> </td>
+            <td>女</td>
+            <td>16</td>
+            <td class="toDis"></td>
+            <td width="100"></td>
+            <td width="100"></td>
+            <td width="100"></td>
+            <td style="display: none;"></td>
+            <td style="display: none;"></td>
+            <td style="display: none;">39</td>
+            <td style="display: none;">北京</td>
+            <td style="display: none;">本科</td>
+            <td style="display: none;">行政人事经理</td>
+            <td style="display: none;">河北大学 衡水师范学院</td>
+            <td style="display: none;">法学 教育学</td>
+            <td style="display: none;">中视金鑫国际广告（北京）有限公司</td>
+            <td style="display: none;">广告/会展/公关</td>
+
+            <td style="display:none;" title="主动投递">
+            主动投递</td>
+            <td title="8/21/2017 11:15:53 AM">
+
+            &nbsp;&nbsp;
+            08-21 11:15
+            </td>
+            </tr>
+            <!--BeginListRecord -->
+            <tr resume-number="JM806679401R90250000000" data-type="1" class="list1"  title="单击一下打开或关闭详细信息"  rdmodule="resumeMoreInfoFac" id="moreinfo_5518112742" resume_bh="" resume_number="1"  resume_source="简历来源:主动投递初次投递:(北京-通州区) 投递时间:" re_jobtime='2016-11至今' re_self="7年HR工作经验，5年上市集团HRBP工作经验，4年管理岗经验。内部多岗位轮职，并担任过分公司HRBP。招聘：招聘的计划和实施，组织架构、部门职能和岗位说明书撰写。薪酬：薪酬方案及实施监督管理。绩效：绩效匹配方案制定并落地执行。培训：培训计划及实施。企业文化：微信公众号及相关活动。福利：各种福利活动的创新及开展。外国人就业证、北京市工作居住证、留学生落户办理经验。其他： 年度预算编制合理制定及执行、负责各部门人力成本核算、成本控制、根据业务优化组织架构、E-hr系统熟练操作及问题解决。沟通能力强，处理事情灵活！已婚已育！"  re_company='北京华映星球股份有限公司' re_jobname='人力资源经理' re_description="新三板上市公司，150人左右，负责人力资源全模块。监管行政总办。业绩：绩效体系建立，根据业务合理优化组织架构。">
+            <td class="tdCheckbox">
+            <input type="checkbox" data-invited="0" data-isfeedback="true"  id="resoutorsend_5518112742" data-language="1" data-cnname="孟晗"  data-resumebh="JM806679401R90250000000" data-resumenumber="1" data-resguid="5518112742"  name="chkid" dev_name="人力资源 7年 北京" userinfo_forsend="孟晗$680667940$1106821029@qq.com$18601087591$5518112742$&amp;*&amp;$女$29$本科$JM806679401R90250000000$人力资源管理 艺术设计$媒体/出版/影视/文化传播$1$CC412565829J90250205000$7$北京-通州区$18601087591" value="5518112742" onClick="unChkSelectAll('chkall')"  class="smpcheckbox"  data-smpcvid="JM806679401R90250000000_1" data-smpownerid="5518112742" data-smpkpi="M2" data-smpxtable="1"/>
+            </td>
+            <td class="fkt_ico_position">
+            <img id="imgFktIcon-5518112742" alt="反馈通" src="//img02.zhaopin.cn/2014/rd2/img/fkt.png" />
+            </td>
+
+            <td  label="" rdmodule="cvLabelOneFac" id="r_label5518112742" cvname="孟晗" title="" class="td4cvIcon"><span  class="cvLabelColorDot"><span class=" cvLabelBlank"></span></span>
+            </td>
+            <td>
+            <a  style=color:#315aaa isread="0" onclick="javascript:ViewOneResume(this,'0','5518112742');" href="//rd.zhaopin.com/resumepreview/resume/viewone/1/5518112742?resume=5518112742&star=&companyid=41256582&pfd=5019_2001" target="_blank" class="link " id="5518112742">孟晗</a>
+            <a target="_blank"
+            href="//rd.zhaopin.com/resumepreview/resume/viewone/1/5518112742_2?resume=5518112742&star=1&companyid=41256582&pfd=5019_2001" >
+            <img src="//img04.zhaopin.cn/rd2/s/images/erd2/blank.gif" border="0" hspace="5" class="iconHasEng" title="英文简历" /></a>
+            <img src="//rd2.zhaopin.com/s/images/erd2/blank.gif" photosrc="/pic/2017/2/21/80aa9d92-7638-4776-ba58-dc83b736085e.jpg" border="0" class="iconRePhoto" id="photo_5518112742" rdmodule="resumePhotoFac" />
+
+            </td>
+            <td name="pId" jobid="CC412565829J90250205000"> </td>
+            <td>女</td>
+            <td>7</td>
+            <td class="toDis"></td>
+            <td width="100"></td>
+            <td width="100"></td>
+            <td width="100"></td>
+            <td style="display: none;"></td>
+            <td style="display: none;"></td>
+            <td style="display: none;">29</td>
+            <td style="display: none;">北京-通州区</td>
+            <td style="display: none;">本科</td>
+            <td style="display: none;">人力资源经理</td>
+            <td style="display: none;">北京大学 山东工艺美院</td>
+            <td style="display: none;">人力资源管理 艺术设计</td>
+            <td style="display: none;">北京华映星球股份有限公司</td>
+            <td style="display: none;">媒体/出版/影视/文化传播</td>
+
+            <td style="display:none;" title="主动投递">
+            主动投递</td>
+            <td title="8/21/2017 11:02:06 AM">
+
+            &nbsp;&nbsp;
+            08-21 11:02
+            </td>
+            </tr>
+            <!--BeginListRecord -->
+            <tr resume-number="JM044446743R90250001000" data-type="1" class="list2"  title="单击一下打开或关闭详细信息"  rdmodule="resumeMoreInfoFac" id="moreinfo_5518062932" resume_bh="" resume_number="1"  resume_source="简历来源:主动投递初次投递:(北京-朝阳区) 投递时间:" re_jobtime='2015-10至2017-05' re_self="通过9年时间的社会与工作岗位的历练，退去了稚嫩的外表，练就了自己的社会责任感和岗位责任心。通过与上级平级的工作配合很好的锻炼了我的与人沟通协作能力，也造就了我对待工作认真和责任心强的工作态度。过早的踏入社会锻炼了我吃苦耐劳的精神和适应能力，在工作中领导的好评是我不断积极向上的动力，正因为认可我才要有更多的进步，我不甘于做个平凡的人，从点滴做起为明天的不凡打好基础！ "  re_company='天津柠檬健康网络技术服务有限公司' re_jobname='市场专员' re_description="岗位职责：
+            1、 负责协助产品、项目的公关传播策划，制定项目传播规划并组织执行；
+            2、 沟通外部新闻媒体、媒介资源，独立选题，负责媒体文章的撰写、发稿及相关合作事宜；
+            4、 沟通公司内部资源，充分利用各种推广渠道整合传播；
+            5、 协助沟通公司市场活动，协助策划及执行；
+            5、 日常品牌维护。
+            6、企业公众号维护与撰写内容发布。">
+            <td class="tdCheckbox">
+            <input type="checkbox" data-invited="0" data-isfeedback="true"  id="resoutorsend_5518062932" data-language="1" data-cnname="刘佳美"  data-resumebh="JM044446743R90250001000" data-resumenumber="1" data-resguid="5518062932"  name="chkid" dev_name="财务/行政主管 市场&#160;&#160;9年 北京" userinfo_forsend="刘佳美$604444674$2276890220@qq.com$15901431724$5518062932$&amp;*&amp;$女$29$大专$JM044446743R90250001000$会计$互联网/电子商务$1$CC412565829J90250207000$9$北京-朝阳区$15901431724" value="5518062932" onClick="unChkSelectAll('chkall')"  class="smpcheckbox"  data-smpcvid="JM044446743R90250001000_1" data-smpownerid="5518062932" data-smpkpi="M2" data-smpxtable="1"/>
+            </td>
+            <td class="fkt_ico_position">
+            <img id="imgFktIcon-5518062932" alt="反馈通" src="//img02.zhaopin.cn/2014/rd2/img/fkt.png" />
+            </td>
+
+            <td  label="" rdmodule="cvLabelOneFac" id="r_label5518062932" cvname="刘佳美" title="" class="td4cvIcon"><span  class="cvLabelColorDot"><span class=" cvLabelBlank"></span></span>
+            </td>
+            <td>
+            <a  style=color:#315aaa isread="0" onclick="javascript:ViewOneResume(this,'0','5518062932');" href="//rd.zhaopin.com/resumepreview/resume/viewone/1/5518062932?resume=5518062932&star=&companyid=41256582&pfd=50_2001" target="_blank" class="link " id="5518062932">刘佳美</a>
+            <img src="//rd2.zhaopin.com/s/images/erd2/blank.gif" photosrc="/pic/2013/5/22/68A4A0220EDE45B1A8467FA43B0420F3.jpg" border="0" class="iconRePhoto" id="photo_5518062932" rdmodule="resumePhotoFac" />
+
+            </td>
+            <td name="pId" jobid="CC412565829J90250207000"> </td>
+            <td>女</td>
+            <td>9</td>
+            <td class="toDis"></td>
+            <td width="100"></td>
+            <td width="100"></td>
+            <td width="100"></td>
+            <td style="display: none;"></td>
+            <td style="display: none;"></td>
+            <td style="display: none;">29</td>
+            <td style="display: none;">北京-朝阳区</td>
+            <td style="display: none;">大专</td>
+            <td style="display: none;">市场专员</td>
+            <td style="display: none;">北京科技大学管庄校区</td>
+            <td style="display: none;">会计</td>
+            <td style="display: none;">天津柠檬健康网络技术服务有限公司</td>
+            <td style="display: none;">互联网/电子商务</td>
+
+            <td style="display:none;" title="主动投递">
+            主动投递</td>
+            <td title="8/21/2017 10:54:02 AM">
+
+            &nbsp;&nbsp;
+            08-21 10:54
+            </td>
+            </tr>
+            <!--BeginListRecord -->
+            <tr resume-number="JM954218249R90250000000" data-type="1" class="list1"  title="单击一下打开或关闭详细信息"  rdmodule="resumeMoreInfoFac" id="moreinfo_5518045367" resume_bh="" resume_number="1"  resume_source="简历来源:主动投递初次投递:(北京) 投递时间:" re_jobtime='2015-12至2017-02' re_self="多年的社会实践并积累了丰富的工作经验。本人对工作有及高的热情和较强的责任心；对时尚有敏感的洞察力；富有创造性的思维；性格开朗，善于与人交流；团队合作精神强，与同事相处融洽；踏实肯干 ,希望在各行各业学习不同专业知识和经验 望贵公司可以给本人一个发展的平台和展示自我的一个机会"  re_company='北京宣石国际拍卖有限公司' re_jobname='综合管理部' re_description="主要负责 拍品的货运 展会的布置 拍品的摆放">
+            <td class="tdCheckbox">
+            <input type="checkbox" data-invited="0" data-isfeedback="true"  id="resoutorsend_5518045367" data-language="1" data-cnname="汪淼"  data-resumebh="JM954218249R90250000000" data-resumenumber="1" data-resguid="5518045367"  name="chkid" dev_name="业务拓展专员/助理 9年 北京" userinfo_forsend="汪淼$695421824$419787928@qq.com$18515373889$5518045367$&amp;*&amp;$男$30$本科$JM954218249R90250000000$行政管理$广告/会展/公关$1$CC412565829J90250207000$9$北京$18515373889" value="5518045367" onClick="unChkSelectAll('chkall')"  class="smpcheckbox"  data-smpcvid="JM954218249R90250000000_1" data-smpownerid="5518045367" data-smpkpi="M2" data-smpxtable="1"/>
+            </td>
+            <td class="fkt_ico_position">
+            <img id="imgFktIcon-5518045367" alt="反馈通" src="//img02.zhaopin.cn/2014/rd2/img/fkt.png" />
+            </td>
+
+            <td  label="" rdmodule="cvLabelOneFac" id="r_label5518045367" cvname="汪淼" title="" class="td4cvIcon"><span  class="cvLabelColorDot"><span class=" cvLabelBlank"></span></span>
+            </td>
+            <td>
+            <a  style=color:#315aaa isread="0" onclick="javascript:ViewOneResume(this,'0','5518045367');" href="//rd.zhaopin.com/resumepreview/resume/viewone/1/5518045367?resume=5518045367&star=&companyid=41256582&pfd=5019_2001" target="_blank" class="link " id="5518045367">汪淼</a>
+            <img src="//rd2.zhaopin.com/s/images/erd2/blank.gif" photosrc="/pic/2017/6/22/656c821b-a138-4ca7-aadb-26efb832bc26.jpg" border="0" class="iconRePhoto" id="photo_5518045367" rdmodule="resumePhotoFac" />
+
+            </td>
+            <td name="pId" jobid="CC412565829J90250207000"> </td>
+            <td>男</td>
+            <td>9</td>
+            <td class="toDis"></td>
+            <td width="100"></td>
+            <td width="100"></td>
+            <td width="100"></td>
+            <td style="display: none;"></td>
+            <td style="display: none;"></td>
+            <td style="display: none;">30</td>
+            <td style="display: none;">北京</td>
+            <td style="display: none;">本科</td>
+            <td style="display: none;">综合管理部</td>
+            <td style="display: none;">中国信息科技大学</td>
+            <td style="display: none;">行政管理</td>
+            <td style="display: none;">北京宣石国际拍卖有限公司</td>
+            <td style="display: none;">广告/会展/公关</td>
+
+            <td style="display:none;" title="主动投递">
+            主动投递</td>
+            <td title="8/21/2017 10:51:28 AM">
+
+            &nbsp;&nbsp;
+            08-21 10:51
+            </td>
+            </tr>
+            <!--BeginListRecord -->
+            <tr resume-number="JM345958185R90250000000" data-type="1" class="list2"  title="单击一下打开或关闭详细信息"  rdmodule="resumeMoreInfoFac" id="moreinfo_5517497517" resume_bh="" resume_number="1"  resume_source="简历来源:主动投递初次投递:(北京) 投递时间:" re_jobtime='2016-10至今' re_self="1、从事人事行政15年，吃苦耐劳，熟悉人事行政工作。2、本人性格热情开朗，待人友好，为人诚实谦虚。 3、工作勤奋，认真负责，能吃苦耐劳，尽职尽责，有耐心。4、具有亲和力，平易近人，善于与人沟通。5、活泼开朗、乐观向上、兴趣广泛、适应力强、上手快、勤奋好学、脚踏实地、认真负责、      坚毅不拔、勇于迎接新挑战。 6、有团队合作精神，愿意贡献自我。7、领导能力较强，能及时、独立带领团队完成上级安排的各项行政人事工作。"  re_company='北京慈心园茶业公司' re_jobname='人事经理' re_description="1、依据公司需求，独立开展人事工作及人才发展管理工作。
+            2、在公司发展战略的框架下，建立并实施人力资源方针和行动计划，以支持公司达到预期经营目标，配合股改进程，及时调整公司人力资源存在的问题，为公司上市进程提供支持。
+            3、负责公司薪酬体系和绩效考核的制定，将合理的薪酬体系上报股东大会，组织实施绩效考核方案，使绩效考核制度落地，并不断完善绩效考核制度和流程。
+            4、在现有的岗位 说明书的情况下，进一步完善公司所有员工的岗位说明书，修订所有职位的职级，制定职级对应的薪酬架构，逐步完善整体薪酬体系、激励体系。为员工搭建良好的 发展平台，明确员工的晋升空间，提升员工工作积极性。
+            5、建立健全人力资源管理体系（包含招聘、绩效、培训、薪酬、员工关系及企业文化等体   系的全面建设），负责组织起草、修改和完善人力资源相关管理制度和公司各项工作流程。
+            6、根据公司股改发展，及时更新现有公司的组织架构。
+            7、根据劳动法律法规及行业准则，及时更新公司员工手册。
+            8、落实公司监督机制，组成监督小组，定期更换小组成员。
+            9、其他突发事件处理和领导交办的工作。 ">
+            <td class="tdCheckbox">
+            <input type="checkbox" data-invited="0" data-isfeedback="true"  id="resoutorsend_5517497517" data-language="1" data-cnname="孙炀"  data-resumebh="JM345958185R90250000000" data-resumenumber="1" data-resguid="5517497517"  name="chkid" dev_name="人事主管、HR 北京" userinfo_forsend="孙炀$634595818$2877231459@qq.com$15811010122$5517497517$&amp;*&amp;$男$41$本科$JM345958185R90250000000$人力资源管理$快速消费品（食品/饮料/烟酒/日化）$1$CC412565829J90250205000$14$北京$15811010122" value="5517497517" onClick="unChkSelectAll('chkall')"  class="smpcheckbox"  data-smpcvid="JM345958185R90250000000_1" data-smpownerid="5517497517" data-smpkpi="M2" data-smpxtable="1"/>
+            </td>
+            <td class="fkt_ico_position">
+            <img id="imgFktIcon-5517497517" alt="反馈通" src="//img02.zhaopin.cn/2014/rd2/img/fkt.png" />
+            </td>
+
+            <td  label="" rdmodule="cvLabelOneFac" id="r_label5517497517" cvname="孙炀" title="" class="td4cvIcon"><span  class="cvLabelColorDot"><span class=" cvLabelBlank"></span></span>
+            </td>
+            <td>
+            <a  style=color:#315aaa isread="0" onclick="javascript:ViewOneResume(this,'0','5517497517');" href="//rd.zhaopin.com/resumepreview/resume/viewone/1/5517497517?resume=5517497517&star=&companyid=41256582&pfd=3_201" target="_blank" class="link " id="5517497517">孙炀</a>
+            <img src="//rd2.zhaopin.com/s/images/erd2/blank.gif" photosrc="/pic/2016/9/6/9442833A66F74000A055101D5EB3E331.jpg" border="0" class="iconRePhoto" id="photo_5517497517" rdmodule="resumePhotoFac" />
+
+            </td>
+            <td name="pId" jobid="CC412565829J90250205000"> </td>
+            <td>男</td>
+            <td>14</td>
+            <td class="toDis"></td>
+            <td width="100"></td>
+            <td width="100"></td>
+            <td width="100"></td>
+            <td style="display: none;"></td>
+            <td style="display: none;"></td>
+            <td style="display: none;">41</td>
+            <td style="display: none;">北京</td>
+            <td style="display: none;">本科</td>
+            <td style="display: none;">人事经理</td>
+            <td style="display: none;">首都经济贸易大学</td>
+            <td style="display: none;">人力资源管理</td>
+            <td style="display: none;">北京慈心园茶业公司</td>
+            <td style="display: none;">快速消费品（食品/饮料/烟酒/日化）</td>
+
+            <td style="display:none;" title="主动投递">
+            主动投递</td>
+            <td title="8/21/2017 9:31:57 AM">
+
+            &nbsp;&nbsp;
+            08-21 09:31
+            </td>
+            </tr>
+            <!--BeginListRecord -->
+            <tr resume-number="JM769881675R90250000000" data-type="1" class="list1"  title="单击一下打开或关闭详细信息"  rdmodule="resumeMoreInfoFac" id="moreinfo_5517362642" resume_bh="" resume_number="1"  resume_source="简历来源:主动投递初次投递:(北京) 投递时间:" re_jobtime='2016-05至今' re_self="擅长绘画  摄影  声乐  围棋；聪明、稳健，思维敏锐，眼光独特，品味好，有讲究，优秀人才，天赋高，10年难得的俊才；同时参加过很多活动，高端人士代表型人才；获奖经历： 朝阳区绘画比赛国画组三等奖                    李宁杯服装设计比赛纪念奖                    界音杂志 绘画作品发表                    啦啦队比赛 业余组二等奖"  re_company='北京黄橙广告有限公司' re_jobname='美术指导' re_description="美术指导 知名广告公司">
+            <td class="tdCheckbox">
+            <input type="checkbox" data-invited="0" data-isfeedback="true"  id="resoutorsend_5517362642" data-language="1" data-cnname="王译墨"  data-resumebh="JM769881675R90250000000" data-resumenumber="1" data-resguid="5517362642"  name="chkid" dev_name="影视/媒体/出版/印刷+艺术/设计+服装/纺织/皮革设计/生产 9年 北京" userinfo_forsend="王译墨$676988167$hilda_ro@163.com$18810516749$5517362642$&amp;*&amp;$女$32$本科$JM769881675R90250000000$美术学 绘画 绘画$媒体/出版/影视/文化传播$1$CC412565829J90250206000$11$北京$18810516749" value="5517362642" onClick="unChkSelectAll('chkall')"  class="smpcheckbox"  data-smpcvid="JM769881675R90250000000_1" data-smpownerid="5517362642" data-smpkpi="M2" data-smpxtable="1"/>
+            </td>
+            <td class="fkt_ico_position">
+            <img id="imgFktIcon-5517362642" alt="反馈通" src="//img02.zhaopin.cn/2014/rd2/img/fkt.png" />
+            </td>
+
+            <td  label="" rdmodule="cvLabelOneFac" id="r_label5517362642" cvname="王译墨" title="" class="td4cvIcon"><span  class="cvLabelColorDot"><span class=" cvLabelBlank"></span></span>
+            </td>
+            <td>
+            <a  style=color:#315aaa isread="0" onclick="javascript:ViewOneResume(this,'0','5517362642');" href="//rd.zhaopin.com/resumepreview/resume/viewone/1/5517362642?resume=5517362642&star=&companyid=41256582&pfd=5020_2001" target="_blank" class="link " id="5517362642">王译墨</a>
+            <a target="_blank"
+            href="//rd.zhaopin.com/resumepreview/resume/viewone/1/5517362642_2?resume=5517362642&star=1&companyid=41256582&pfd=5020_2001" >
+            <img src="//img04.zhaopin.cn/rd2/s/images/erd2/blank.gif" border="0" hspace="5" class="iconHasEng" title="英文简历" /></a>
+            <img src="//rd2.zhaopin.com/s/images/erd2/blank.gif" photosrc="/pic/2016/9/18/4c2b0c03-3173-437a-95dd-7f3d77f018db.jpg" border="0" class="iconRePhoto" id="photo_5517362642" rdmodule="resumePhotoFac" />
+
+            </td>
+            <td name="pId" jobid="CC412565829J90250206000"> </td>
+            <td>女</td>
+            <td>11</td>
+            <td class="toDis"></td>
+            <td width="100"></td>
+            <td width="100"></td>
+            <td width="100"></td>
+            <td style="display: none;"></td>
+            <td style="display: none;"></td>
+            <td style="display: none;">32</td>
+            <td style="display: none;">北京</td>
+            <td style="display: none;">本科</td>
+            <td style="display: none;">美术指导</td>
+            <td style="display: none;">北京航空航天大学 李宁杯服装设计比赛纪念奖 朝阳区绘画比赛国画组三等奖</td>
+            <td style="display: none;">美术学 绘画 绘画</td>
+            <td style="display: none;">北京黄橙广告有限公司</td>
+            <td style="display: none;">媒体/出版/影视/文化传播</td>
+
+            <td style="display:none;" title="主动投递">
+            主动投递</td>
+            <td title="8/21/2017 9:13:09 AM">
+
+            &nbsp;&nbsp;
+            08-21 09:13
+            </td>
+            </tr>
+            <!--BeginListRecord -->
+            <tr resume-number="JM110931603R90250000000" data-type="1" class="list2"  title="单击一下打开或关闭详细信息"  rdmodule="resumeMoreInfoFac" id="moreinfo_5516937067" resume_bh="" resume_number="1"  resume_source="简历来源:主动投递初次投递:(北京-丰台区) 投递时间:" re_jobtime='2015-09至今' re_self="本人陈立宇，广西省工艺美术1995-1999四年制工艺美术设计(产品造型设计)专业毕业(现定居北京)经过多年的设计与实践工作，具备独立的设计工作思想和工作合作精神，热爱美术与设计,多种数码设计表现。在北京工作时间14年(由2001年开始)，工作经验丰富.具备一定综合设计能力及熟悉设计软件运用。掌握设计技能适合于多种行业，可根据单位需求提供服务，生活中接触社会各类行业广泛.应聘三维/平面/网页/虚拟现实等多媒体美术综合类设计.电话15724734146"  re_company='近期工业公司' re_jobname='设计管理人员' re_description="工业品造型设计，产品若干，可根据企业需求设计产品造型（社会实践作品工业级产品和民用产品都有）面试有作品。以及建设单位搭建虚拟展示试用平台">
+            <td class="tdCheckbox">
+            <input type="checkbox" data-invited="0" data-isfeedback="true"  id="resoutorsend_5516937067" data-language="1" data-cnname="陈立宇"  data-resumebh="JM110931603R90250000000" data-resumenumber="1" data-resguid="5516937067"  name="chkid" dev_name="资深设计应聘三维/平面/网页/产品造型类/虚拟现实等美术综合类设计 胜任艺术设计总监/指导" userinfo_forsend="陈立宇$611093160$clykc2003@163.com$15910484527$5516937067$&amp;*&amp;$男$40$本科$JM110931603R90250000000$艺术设计$电气/电力/水利$1$CC412565829J90250209000$17$北京-丰台区$15910484527" value="5516937067" onClick="unChkSelectAll('chkall')"  class="smpcheckbox"  data-smpcvid="JM110931603R90250000000_1" data-smpownerid="5516937067" data-smpkpi="M2" data-smpxtable="1"/>
+            </td>
+            <td class="fkt_ico_position">
+            <img id="imgFktIcon-5516937067" alt="反馈通" src="//img02.zhaopin.cn/2014/rd2/img/fkt.png" />
+            </td>
+
+            <td  label="" rdmodule="cvLabelOneFac" id="r_label5516937067" cvname="陈立宇" title="" class="td4cvIcon"><span  class="cvLabelColorDot"><span class=" cvLabelBlank"></span></span>
+            </td>
+            <td>
+            <a  style=color:#315aaa isread="0" onclick="javascript:ViewOneResume(this,'0','5516937067');" href="//rd.zhaopin.com/resumepreview/resume/viewone/1/5516937067?resume=5516937067&star=&companyid=41256582&pfd=3_201" target="_blank" class="link " id="5516937067">陈立宇</a>
+            <img src="//rd2.zhaopin.com/s/images/erd2/blank.gif" photosrc="/pic/2015/6/24/889961539D1046F58BA650F7BFE1A8C8.jpg" border="0" class="iconRePhoto" id="photo_5516937067" rdmodule="resumePhotoFac" />
+
+            </td>
+            <td name="pId" jobid="CC412565829J90250209000"> </td>
+            <td>男</td>
+            <td>17</td>
+            <td class="toDis"></td>
+            <td width="100"></td>
+            <td width="100"></td>
+            <td width="100"></td>
+            <td style="display: none;"></td>
+            <td style="display: none;"></td>
+            <td style="display: none;">40</td>
+            <td style="display: none;">北京-丰台区</td>
+            <td style="display: none;">本科</td>
+            <td style="display: none;">设计管理人员</td>
+            <td style="display: none;">广西省工艺美术学院</td>
+            <td style="display: none;">艺术设计</td>
+            <td style="display: none;">近期工业公司</td>
+            <td style="display: none;">电气/电力/水利</td>
+
+            <td style="display:none;" title="主动投递">
+            主动投递</td>
+            <td title="8/21/2017 1:39:16 AM">
+
+            &nbsp;&nbsp;
+            08-21 01:39
+            </td>
+            </tr>
+            </table>
+            <input type="hidden" name="DColumn_hidden" id="DColumn_hidden" value="" />
+            <input type="hidden" name="searchKeyword" id="searchKeyword" value="" />
+            </div>
+
+
+            </div>
+            <input type="hidden" name="curSubmitRecord" id="curSubmitRecord" value="26" />
+            <input type="hidden" name="curMaxPageNum" id="curMaxPageNum" value="2" />
+            <div class="turnpageCon clearfix">
+            <div class="checkAll">
+            <input type="checkbox" name="chkall" id="chkall" value="1" onclick="ChkSelectAll('chkid', 'chkall')" /><label for="chkall" style="cursor: pointer"> 全选</label>
+            </div>
+            <div style="float: left; margin: 3px 0 0 13px;">
+            <img src="//img04.zhaopin.cn/rd2/s/images/erd2/blank.gif" border="0" hspace="5" class="iconHasEng" />有英文简历&nbsp;&nbsp;<img src="//img04.zhaopin.cn/rd2/s/images/erd2/blank.gif" border="0" hspace="5" class="iconHasPhoto" />有照片&nbsp;&nbsp;
+            <img src="//img04.zhaopin.cn/rd2/s/images/erd2/blank.gif" border="0" hspace="5" class="iconHasSMSPhoto" />
+            已发送短信&nbsp;&nbsp;                 <img src="//img04.zhaopin.cn/rd2/s/images/erd2/blank.gif" border="0" hspace="5" class="iconHasEmailPhoto" />
+            已发送邮件                 <img width="16" height="14" align="absmiddle" class="mr5" src="//img00.zhaopin.cn/2014/rd2/img/wxico.png" />
+            绑定智联微信公众号        </div>
+            <div class="turnpage">
+            <a href="javascript:void(0)" class='color000'>首页</a>
+            <a href="javascript:gotoPage('2');" >下页</a>
+            <a href="javascript:gotoPage('2');" >尾页</a>
+            &nbsp;&nbsp;&nbsp;&nbsp;第<span class='red12px'>1/2</span>页，去
+
+            <input type="text" value='' name='PageList2' size='2' class='searchnum' id="pageList2" />
+            页&nbsp;
+            <input type='button' value='Go' class='genButton3' onclick='gotoPage($("#pageList2").val())' />
+            </div>
+            </div>
+            <!--abc 1 -->
+            <div class="bottomControl">
+            <strong class="addm markBtn">
+            <input type="button" name="btnBack" value="标记为待沟通" class="__ga__RDresumeA_toalternate_002 genButton6 smpevent" onclick="return ShowBack(this)">
+
+            <input type="button" name="btn" value="标记为不合适" class="__ga__RDresumeA_torefuse_002 genButton6 smpevent" onclick="return ShowImproper(this)">
+            </strong>        <span id="moreAction" style="display: inline-block">
+            <input type="hidden" name="buttonAsse" value="导入测评系统" onclick="return assessmentExport()" id="talentAssessment" class="genButton6 smpevent" data-smpposition="latestresumelist" data-smpaction="importtoassessment" />
+            <input type="hidden" name="buttonInfo" value="发通知信" tdindex="3" rdmodule="sendInfoFac" id="sendInfoTrigger" cvbox="document.form1.chkid" sender="启越东方公关顾问(北京)有限公司" reply="1035768930@qq.com" class="genButton1 smpevent" data-smpposition="latestresumelist" data-smpaction="sendmessage"/>
+
+            <input type="button" name="buttonLabel" value="添/删标签" rdmodule="cvActionPortFac" id="cvLabelTrigger" cvbox="document.form1.chkid" class="genButton1">
+            <input type="button" name="view" value="显示简历" onclick="Javascript: ViewMoreResume(); viewmore()" class="genButton1">
+            <input type="button" id="resoutbtn" value="保存到我的电脑" class="genButton6 smpevent" data-down="1" onclick="ResXOut.ShowResOutDiv(0)" data-smpposition="latestresumelist" data-smpaction="savetocomputer">
+            <input type="button" value="转发简历到邮箱" class="genButton6 smpevent" data-down="1" id="forwordResumeToEmail" data-smpposition="latestresumelist" data-smpaction="forwardemail">
+            <input type="button" name="Submit223" value="推荐职位" class="genButton1 smpevent" onclick="goToRecommendJob()" data-smpposition="latestresumelist" data-smpaction="recommendposition">
+            <input type="button" name="Submit4" value="放入回收站" class="genButton2" onclick="goToMoveToRecycle()" style="color:#315aaa;cursor:pointer" />
+            </span>
+            &nbsp;</div>`
+
+    var html = document.createElement('div');
+    html.id = 'htmlId';
+    html.innerHTML = domhtml;
+    var resumeList = $(html).find('#zpResumeListTable ').html()
+    console.log($(html).find('#zpResumeListTable').html())
+
+    </script>
+</body>
+</html>
