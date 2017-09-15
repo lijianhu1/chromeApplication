@@ -1,3 +1,4 @@
+
 var cookieFoo = function () {
 };  //新建全局函数
 cookieFoo.prototype.set = function (cookieText) {  //给全局函数添加设置cookie方法
@@ -30,13 +31,12 @@ cookieFoo.prototype.set = function (cookieText) {  //给全局函数添加设置
 function trim(str) {
     return str.replace(/(^\s+)|(\s+$)/g, "");
 }
-
-
 var resumeTatal = 0; //本次总导出简历分数
 var folderId = '';//文件夹id
 var needExportNum = 200;
 var accountId = '';
 var compUserId='';
+var times = 400; //计时器时间
 //监听简历夹列表
 var deliveryType;//投递类型  1：待处理  2：待沟通  3：已发出面试邀请  4：不合适
 
@@ -53,8 +53,8 @@ var readyUrl = 'http://ats.yifengjianli.com/resume/exportResumeReady',
 chrome.extension.onConnect.addListener(function (port) {
     if (port.name == "zlAction") {
         port.onMessage.addListener(function (req) {
-             function beginZl(overdue) {
-                $.get(readyUrl, {isGetCookie: overdue?0:(req.isGetCookie?1:0)}, function (zlActionRes) {
+             function beginZl(overdue,dama) {
+                $.get(readyUrl, {isGetCookie: overdue?0:(req.isGetCookie?1:0),isDama:dama?1:0}, function (zlActionRes) {
                     console.log(zlActionRes)
                     if (zlActionRes.code == 200) {
                         chrome.browserAction.setIcon({path: 'img/icon.png'});
@@ -71,7 +71,7 @@ chrome.extension.onConnect.addListener(function (port) {
                                     console.log('无本地cookie');
                                     cookieData.set(item.zlCookie);
                                     chrome.cookies.set({
-                                        'url': 'http://test.yifengjianli.com',
+                                        'url': 'http://'+req.host,
                                         'name': 'zl_cookie',
                                         'value': (item.zlCookie).split(';').join('LIJIANHUI'),
                                         'secure': false,
@@ -107,219 +107,231 @@ chrome.extension.onConnect.addListener(function (port) {
 
             }
             beginZl()
-
             function folderListFun(favoriteId, pageInd) {
-                $.get('https://rd2.zhaopin.com/RdApply/Resumes/Resume/GetFavoriteFolderList', function (folderResponse) {
-                    console.log(folderResponse);
-                    var zlListData = {
-                        favoriteId: '',
-                        isTemp: 'n',
-                        resumeSourceId: '0',
-                        queryDateTime: '2016-08-17 15:07:09',
-                        pageIndex: pageInd ? pageInd : 1,
-                    }
+                 $.ajax({
+                     url:'https://rd2.zhaopin.com/RdApply/Resumes/Resume/GetFavoriteFolderList',
+                     type:'GET',
+                     success:function (folderResponse) {
+                         console.log(folderResponse);
 
+                         var zlListData = {
+                             favoriteId: '',
+                             isTemp: 'n',
+                             resumeSourceId: '0',
+                             queryDateTime: '2016-08-17 15:07:09',
+                             pageIndex: pageInd ? pageInd : 1,
+                         }
+                         if (folderResponse.Code == 200) {
+                             var resFolderLen = folderResponse.Data.length;
+                             var folderIndex = 0; //简历列表索引
+                             function folderItemFun() {  //单个文件夹遍历
+                                 if (folderResponse.Data[folderIndex].LevelMark != null) {
+                                     console.log(folderResponse.Data[folderIndex])
+                                     var id = folderResponse.Data[folderIndex].Id;
+                                     console.log("id:" + id);
+                                     console.log("favoriteId:" + favoriteId)
+                                     folderId = favoriteId ? favoriteId : id;
+                                     // folderId = id;
+                                     console.log("folderId:" + folderId)
+                                     zlListData.favoriteId = folderId;
+                                     var zlData = {
+                                         curr: zlListData.pageIndex,
+                                         zlListData: zlListData
+                                     }
+                                     console.log(zlData)
+                                     function GetResumeDetailList() {
+                                         $.ajax({
+                                             url: 'https://rd2.zhaopin.com/RdApply/Resumes/Resume/GetResumeList',
+                                             type: 'POST',
+                                             data: zlData.zlListData,
+                                             async: false,
+                                             success: function (resumeListData) {
+                                                 console.log('文件夹列表', resumeListData);
+                                                 resumeListData.currentPage = zlData.curr;
+                                                 if (resumeListData.ResumeViewList.length > 0) {
+                                                     var pageCount = resumeListData.PageCount;  //总页数
+                                                     zlListData = {   //简历夹列表请求数据
+                                                         favoriteId: folderId,   //简历夹ID
+                                                         isTemp: 'n',
+                                                         resumeSourceId: '0',
+                                                         queryDateTime: '2016-08-17 15:07:09',
+                                                     }
+                                                     var currPage = resumeListData.currentPage;
+                                                     for (var ind = 1; ind <= pageCount; ind++) {
+                                                         if (currPage == ind) {
+                                                             zlListData.pageIndex = ind + 1;
+                                                             var resumeArr = [];
+                                                             zlData = {
+                                                                 curr: ind + 1,
+                                                                 zlListData: zlListData
+                                                             }
+                                                             var resumeCount = 0;
 
-                    if (folderResponse.Code == 200) {
-                        var resFolderLen = folderResponse.Data.length;
-                        var folderIndex = 0; //简历列表索引
-                        function folderItemFun() {  //单个文件夹遍历
-                            if (folderResponse.Data[folderIndex].LevelMark != null) {
-                                console.log(folderResponse.Data[folderIndex])
-                                var id = folderResponse.Data[folderIndex].Id;
-                                console.log("id:" + id);
-                                console.log("favoriteId:" + favoriteId)
-                                folderId = favoriteId ? favoriteId : id;
-                                // folderId = id;
-                                console.log("folderId:" + folderId)
-                                zlListData.favoriteId = folderId;
-                                var zlData = {
-                                    curr: zlListData.pageIndex,
-                                    zlListData: zlListData
-                                }
-                                console.log(zlData)
-                                function GetResumeDetailList() {
-                                    $.ajax({
-                                        url: 'https://rd2.zhaopin.com/RdApply/Resumes/Resume/GetResumeList',
-                                        type: 'post',
-                                        data: zlData.zlListData,
-                                        async: false,
-                                        success: function (resumeListData) {
-                                            console.log('文件夹列表', resumeListData);
-                                            resumeListData.currentPage = zlData.curr;
-                                            if (resumeListData.ResumeViewList.length > 0) {
-                                                var pageCount = resumeListData.PageCount;  //总页数
-                                                zlListData = {   //简历夹列表请求数据
-                                                    favoriteId: folderId,   //简历夹ID
-                                                    isTemp: 'n',
-                                                    resumeSourceId: '0',
-                                                    queryDateTime: '2016-08-17 15:07:09',
-                                                }
-                                                var currPage = resumeListData.currentPage;
-                                                for (var ind = 1; ind <= pageCount; ind++) {
-                                                    if (currPage == ind) {
-                                                        zlListData.pageIndex = ind + 1;
-                                                        var resumeArr = [];
-                                                        zlData = {
-                                                            curr: ind + 1,
-                                                            zlListData: zlListData
-                                                        }
-                                                        var resumeCount = 0;
+                                                             function resumeListFoo() {
+                                                                 console.log(resumeTatal)
+                                                                 if (resumeTatal > needExportNum) {    //每次最多导出n份简历
+                                                                     clearInterval(resumeTime);
+                                                                     var resumeData = {
+                                                                         source: 3, // 2 前程、3智联  ----简历来源
+                                                                         sourceFile: 1, //1 人才夹、2 收件箱
+                                                                         resumeDetailStr: resumeArr.join('AA&AA'),  //AA&AA用具分离每份简历的标识
+                                                                         compUserId:compUserId
+                                                                     }
+                                                                     var record = {
+                                                                         exportPage: currPage,  //第几页
+                                                                         talentFolderId: folderId,  //人才夹文件夹ID
+                                                                         id: accountId, //账户id
+                                                                         sourceFile: 1, //1 人才夹、2 收件箱
+                                                                     }
 
-                                                        function resumeListFoo() {
-                                                            console.log(resumeTatal)
-                                                            if (resumeTatal > needExportNum) {    //每次最多导出100份简历
-                                                                clearInterval(resumeTime);
-                                                                var resumeData = {
-                                                                    source: 3, // 2 前程、3智联  ----简历来源
-                                                                    sourceFile: 1, //1 人才夹、2 收件箱
-                                                                    resumeDetailStr: resumeArr.join('AA&AA'),  //AA&AA用具分离每份简历的标识
-                                                                    compUserId:compUserId
-                                                                }
-                                                                var record = {
-                                                                    exportPage: currPage,  //第几页
-                                                                    talentFolderId: folderId,  //人才夹文件夹ID
-                                                                    id: accountId, //账户id
-                                                                    sourceFile: 1, //1 人才夹、2 收件箱
+                                                                     console.log(record)
+                                                                     $.ajax({
+                                                                         url: exportUrl,
+                                                                         type: 'POST',
+                                                                         async: false,
+                                                                         data: resumeData,
+                                                                         success: function (res) {
+                                                                             console.log("当天提交")
+                                                                             $.ajax({
+                                                                                 url: updateExport,
+                                                                                 type: 'POST',
+                                                                                 data: record,
+                                                                                 success: function (allres) {
+                                                                                     console.log('当天导出完毕');
+                                                                                     chrome.browserAction.setIcon({path: 'img/icon19.png'});
+                                                                                 }
+                                                                             })
+                                                                         },
+                                                                         error: function (res) {
+                                                                             console.log(res);
+                                                                             chrome.browserAction.setIcon({path: 'img/icon19.png'});
+                                                                         }
+                                                                     });
+                                                                     return
+                                                                 }
+                                                                 if (resumeCount >= resumeListData.ResumeViewList.length) {  //导出分数与简历分数相等时请求到后台
 
-                                                                }
+                                                                     clearInterval(resumeTime);
+                                                                     var resumeData = {
+                                                                         source: 3, // 2 前程、3智联  ----简历来源
+                                                                         sourceFile: 1, //1 人才夹、2 收件箱
+                                                                         resumeDetailStr: resumeArr.join('AA&AA'),
+                                                                         compUserId:compUserId
+                                                                     }
+                                                                     console.log("文件夹索引：" + folderIndex);
+                                                                     console.log(resumeArr)
+                                                                     $.ajax({
+                                                                         url: exportUrl,
+                                                                         type: 'POST',
+                                                                         async: false,
+                                                                         data: resumeData,
+                                                                         success: function (res) {
+                                                                             console.log(res)
+                                                                             if(res.code==200){
+                                                                                 var record = {
+                                                                                     deliveryType: 1,
+                                                                                     exportPage: parseInt(currPage)+1,  //第几页
+                                                                                     sourceFile: 1, //1 人才夹、2 收件箱
+                                                                                     talentFolderId: folderId,  //人才夹文件夹ID
+                                                                                     id: accountId //账户id
+                                                                                 }
+                                                                                 $.ajax({
+                                                                                     url: updateExport,
+                                                                                     type: 'POST',
+                                                                                     async: false,
+                                                                                     data: record,
+                                                                                     success: function (allres) {
 
-                                                                console.log(record)
-                                                                $.ajax({
-                                                                    url: exportUrl,
-                                                                    type: 'POST',
-                                                                    async: false,
-                                                                    data: resumeData,
-                                                                    success: function (res) {
-                                                                        console.log("当天提交")
-                                                                        $.ajax({
-                                                                            url: updateExport,
-                                                                            type: 'POST',
-                                                                            data: record,
-                                                                            success: function (allres) {
-                                                                                console.log('当天导出完毕');
-                                                                                chrome.browserAction.setIcon({path: 'img/icon19.png'});
-                                                                            }
-                                                                        })
-                                                                    },
-                                                                    error: function (res) {
-                                                                        console.log(res);
-                                                                        chrome.browserAction.setIcon({path: 'img/icon19.png'});
-                                                                    }
-                                                                });
-                                                                return
-                                                            }
-                                                            if (resumeCount == resumeListData.ResumeViewList.length) {  //导出分数与简历分数相等时请求到后台
+                                                                                         if ((folderIndex == resFolderLen - 1) && (currPage == pageCount)) {
+                                                                                             deliveryType = 1;
+                                                                                             screenData.SF_1_1_50 = deliveryType;
+                                                                                             screenData.click_search_op_type = deliveryType
+                                                                                             console.log(screenData)
+                                                                                             screenList(screenData)
+                                                                                         }else {
+                                                                                             GetResumeDetailList()
+                                                                                         }
+                                                                                     }
+                                                                                 });
+                                                                             }
 
-                                                                clearInterval(resumeTime);
-                                                                var resumeData = {
-                                                                    source: 3, // 2 前程、3智联  ----简历来源
-                                                                    sourceFile: 1, //1 人才夹、2 收件箱
-                                                                    resumeDetailStr: resumeArr.join('AA&AA'),
-                                                                    compUserId:compUserId
-                                                                }
-                                                                console.log("文件夹索引：" + folderIndex);
-                                                                console.log(resumeArr)
-                                                                $.ajax({
-                                                                    url: exportUrl,
-                                                                    type: 'POST',
-                                                                    async: false,
-                                                                    data: resumeData,
-                                                                    success: function (res) {
-                                                                        console.log(res)
-                                                                        if(res.code==200){
-                                                                            var record = {
-                                                                                deliveryType: 1,
-                                                                                exportPage: parseInt(currPage)+1,  //第几页
-                                                                                talentFolderId: folderId,  //人才夹文件夹ID
-                                                                                id: accountId //账户id
-                                                                            }
-                                                                            $.ajax({
-                                                                                url: updateExport,
-                                                                                type: 'POST',
-                                                                                async: false,
-                                                                                data: record,
-                                                                                success: function (allres) {
-                                                                                    GetResumeDetailList()
-                                                                                    if ((folderIndex == resFolderLen - 1) && (currPage == pageCount)) {
-                                                                                        deliveryType = 1;
-                                                                                        screenData.SF_1_1_50 = deliveryType;
-                                                                                        screenData.click_search_op_type = deliveryType
-                                                                                        console.log(screenData)
-                                                                                        screenList(screenData)
-                                                                                    }
-                                                                                }
-                                                                            });
-                                                                        }
+                                                                         },
+                                                                         error: function (res) {
+                                                                             console.log(res);
+                                                                             chrome.browserAction.setIcon({path: 'img/icon19.png'});
+                                                                         }
+                                                                     });
 
-                                                                    },
-                                                                    error: function (res) {
-                                                                        console.log(res);
-                                                                        chrome.browserAction.setIcon({path: 'img/icon19.png'});
-                                                                    }
-                                                                });
+                                                                 } else {
+                                                                     var guid = resumeListData.ResumeViewList[resumeCount].Guid;
+                                                                     $.ajax({
+                                                                         url:'https://rd.zhaopin.com/resumepreview/resume/viewone/1/' + guid,
+                                                                         type:'get',
+                                                                         success:function (guidRes) {
+                                                                             resumeArr.push(guidRes);
+                                                                             resumeCount++;  //该页简历分数自加
+                                                                             resumeTatal += 1; //该次已导出总分数
+                                                                         },
+                                                                         error:function (err) {
+                                                                             console.log('err',err)
+                                                                             clearInterval(resumeTime);
+                                                                             beginZl(false,true);
+                                                                             console.log('打码')
+                                                                         }
+                                                                     })
 
-                                                            } else {
-                                                                var guid = resumeListData.ResumeViewList[resumeCount].Guid;
-                                                                $.ajax({
-                                                                    url:'https://rd.zhaopin.com/resumepreview/resume/viewone/1/' + guid,
-                                                                    type:'get',
-                                                                    success:function (guidRes) {
-                                                                        resumeArr.push(guidRes);
-                                                                        resumeCount++;  //该页简历分数自加
-                                                                        resumeTatal += 1; //该次已导出总分数
-                                                                    },
-                                                                    error:function (err) {
-                                                                        console.log('err',err)
-                                                                        clearInterval(resumeTime);
-                                                                        $.get('resume/clearZlCookie',function (res) {
-                                                                            console.log('终止：',res)
-                                                                        })
-                                                                    }
-                                                                })
+                                                                 }
+                                                             }
 
-                                                            }
-                                                        }
+                                                             var resumeTime = setInterval(function () {  //计时器，每2秒请求一次简历详情
+                                                                 resumeListFoo()
+                                                             }, times)
+                                                         }
+                                                     }
 
-                                                        var resumeTime = setInterval(function () {  //计时器，每2秒请求一次简历详情
-                                                            resumeListFoo()
-                                                        }, 3000)
-                                                    }
-                                                }
+                                                 } else {
+                                                     folderIndex += 1;
+                                                     zlListData.pageIndex = 1
+                                                     if (folderIndex >= resFolderLen) {
+                                                         deliveryType = 1;
+                                                         screenData.SF_1_1_50 = deliveryType;
+                                                         screenData.click_search_op_type = deliveryType
+                                                         console.log(screenData)
+                                                         screenList(screenData)
+                                                         // return;
+                                                     } else {
+                                                         folderItemFun()
+                                                     }
+                                                 }
+                                             },
+                                             error:function (err) {
+                                                 beginZl(false,true);
+                                                 console.log('打码')
+                                             }
+                                         })
+                                     }
 
-                                            } else {
-                                                folderIndex += 1;
-                                                zlListData.pageIndex = 1
-                                                if (folderIndex >= resFolderLen) {
-                                                    deliveryType = 1;
-                                                    screenData.SF_1_1_50 = deliveryType;
-                                                    screenData.click_search_op_type = deliveryType
-                                                    console.log(screenData)
-                                                    screenList(screenData)
-                                                    // return;
-                                                } else {
-                                                    folderItemFun()
-                                                }
-                                            }
-                                        }
-                                    })
-                                }
+                                     GetResumeDetailList()
+                                     // portFun(i,resFolderLen)
 
-                                GetResumeDetailList()
-                                // portFun(i,resFolderLen)
+                                 } else {
+                                     if (folderIndex > resFolderLen) return;
+                                     folderIndex += 1;
+                                     folderItemFun()
+                                 }
 
-                            } else {
-                                if (folderIndex > resFolderLen) return;
-                                folderIndex += 1;
-                                folderItemFun()
-                            }
+                             }
+                             folderItemFun()
+                         }else {
+                             beginZl(true)
+                         }
+                     },
+                     error:function (err) {
+                         beginZl(false,true);
+                         console.log('打码')
+                     }
+                 })
 
-                        }
-                        folderItemFun()
-                    }else {
-                        beginZl(true)
-                    }
-                })
             }
             //*********投递************//
             var screenData = {
@@ -337,7 +349,7 @@ chrome.extension.onConnect.addListener(function (port) {
             var screenHtml = document.createElement('div');
             screenHtml.id = 'screenHtml';
             function screenList(screenFormData) {
-                $.post('https://rd2.zhaopin.com/rdapply/resumes/apply/search?SF_1_1_38=2,9&orderBy=CreateTime', screenFormData, function (response) {
+                $.post('https://rd2.zhaopin.com/rdapply/resumes/apply/search?SF_1_1_38=4,9&orderBy=CreateTime', screenFormData, function (response) {
                     screenHtml.innerHTML = response;
                     var screenDetailList = [];
                     var screenDate = [];
@@ -360,6 +372,7 @@ chrome.extension.onConnect.addListener(function (port) {
                         var currPage = pages.split('/')[0];  //当前页
                         var totalPage = pages.split('/')[1]; //总页数
                         function screenResumeDetail() {
+                            console.log(resumeTatal)
                             if (screenCount == screenDetailList.length) {
                                 var resumeData = {
                                     source: 3, // 2 前程、3智联  ----简历来源
@@ -478,9 +491,7 @@ chrome.extension.onConnect.addListener(function (port) {
                                                 success: function (allres) {
                                                     console.log('当天导出完毕');
                                                     chrome.browserAction.setIcon({path: 'img/icon19.png'});
-                                                    $.get('resume/clearZlCookie',function (res) {
-                                                        console.log('终止：',res)
-                                                    })
+                                                    clearInterval(screenTime)
                                                     return
                                                 }
                                             })
@@ -502,12 +513,9 @@ chrome.extension.onConnect.addListener(function (port) {
                                             resumeTatal += 1;
                                         },
                                         error:function (err) {
-                                            if (err){
-                                                $.get('resume/clearZlCookie',function (res) {
-                                                    console.log('终止：',res)
-                                                })
-                                                clearInterval(screenTime)
-                                            }
+                                            beginZl(false,true);
+                                            console.log('打码')
+                                            clearInterval(screenTime)
                                         }
                                     })
                                 }
@@ -515,7 +523,7 @@ chrome.extension.onConnect.addListener(function (port) {
                         };
                         var screenTime = setInterval(function () {
                             screenResumeDetail();
-                        }, 3000);
+                        }, times);
                     } else {
                         if (deliveryType < 4) {
                             deliveryType = parseInt(deliveryType) + 1;
@@ -533,15 +541,31 @@ chrome.extension.onConnect.addListener(function (port) {
                             };
                             screenList(deliveryFormData)
                         }else {
-                            $.get('resume/clearZlCookie',function (res) {
-                                console.log('终止：',res)
-                            })
                             chrome.browserAction.setIcon({path: 'img/icon19.png'});
+                            var recordData = {
+                                deliveryType: deliveryType,
+                                exportPage: 1, //第几页
+                                sourceFile: 2,
+                                id: accountId,
+                                isExportComplete:1
+                            }
+                            $.ajax({
+                                url: updateExport,
+                                type: 'POST',
+                                data: recordData,
+                                async: false,
+                                success: function (allres) {
+                                    console.log('简历投递导出完毕');
+                                    chrome.browserAction.setIcon({path: 'img/icon19.png'});
+                                    return;
+                                }
+                            })
                         }
                     }
                 })
             }
         });
     };
-
 });
+
+

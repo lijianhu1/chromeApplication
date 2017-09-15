@@ -37,53 +37,13 @@ for (var index in resumeCookieList) {
     });
 };
 
-var positionHtml = document.createElement('div');
-positionHtml.id = 'positionHtml';
-
-var online = {  //在线中职位
-    pagesize:100,
-    pageindex:1,
-    status:3,
-    jobpositionType:0,
-    orderByType:1,
-    orderBy:2
-},unline={  //未上线职位
-    pagesize:100,
-    pageindex:1,
-    status:1,
-    jobpositionType:0,
-    orderByType:1,
-    orderBy:4
-},downline={  //已下线职位
-    pagesize:100,
-    pageindex:1,
-    status:4,
-    jobpositionType:0,
-    orderByType:1,
-    orderBy:3,
-    substatus:0
-},inaudit={   //审核中职位
-    pagesize:100,
-    pageindex:1,
-    status:2,
-    jobpositionType:0,
-    orderByType:1,
-    orderBy:2
-},unaudit={   //未通过中职位
-    pagesize:100,
-    pageindex:1,
-    status:6,
-    jobpositionType:0,
-    orderByType:1,
-    orderBy:2
-}
 
 chrome.extension.onConnect.addListener(function (port) {
-    if (port.name=='posiAction'){
-         port.onMessage.addListener(function (request) {
-             console.log(request)
-             var positionManage=online;
-             function getPositionList() {
+    if (port.name=='posiAction'){  //获取职位列表
+        port.onMessage.addListener(function (request) {
+            console.log(request)
+            var positionManage=online;
+            function getPositionList() {
                 console.log('当前状态：',positionManage)
                 $.ajax({
                     url:'https://jobads.zhaopin.com/Position/PositionManageStatus',
@@ -104,7 +64,7 @@ chrome.extension.onConnect.addListener(function (port) {
                         console.log(positionsListArr);
                         if(positionsListArr.length>0){
                             var positionIndex=0;
-                            function getPositionDetail() {
+                            function getPositionDetail() {   //获取职位列表详情
                                 console.log(positionIndex);
                                 $.ajax({
                                     url:'https://jobads.zhaopin.com/Position/PositionPreview/'+positionsListArr[positionIndex],
@@ -175,26 +135,26 @@ chrome.extension.onConnect.addListener(function (port) {
                     }
                 });
             }
-             getPositionList()
-
-         })
-    }
-    if(port.name=='addposiAction'){
-        port.onMessage.addListener(function (request) {
-            console.log(request);
-                $.ajax({
-                    url:'https://jobads.zhaopin.com/Position/PositionAdd',
-                    data:request.addPosi,
-                    type:'post',
-                    dataType:'json',
-                    success:function (res) {
-                        port.postMessage(res)
-                    }
-                })
+            getPositionList()
 
         })
     }
-    if(port.name=='delposiAction'){
+    if(port.name=='addposiAction'){   //添加职位
+        port.onMessage.addListener(function (request) {
+            console.log(request);
+            $.ajax({
+                url:'https://jobads.zhaopin.com/Position/PositionAdd',
+                data:request.addPosi,
+                type:'post',
+                dataType:'json',
+                success:function (res) {
+                    port.postMessage(res)
+                }
+            })
+
+        })
+    }
+    if(port.name=='delposiAction'){   //删除职位
         port.onMessage.addListener(function (request) {
             console.log(request);
             if(request.code==200){
@@ -215,7 +175,7 @@ chrome.extension.onConnect.addListener(function (port) {
 
         })
     }
-    if(port.name=='unlineposiAction'){
+    if(port.name=='unlineposiAction'){   //下线职位
         port.onMessage.addListener(function (request) {
             if(request.code==200){
                 $.ajax({
@@ -264,7 +224,7 @@ chrome.extension.onConnect.addListener(function (port) {
         })
     }
 
-    if(port.name=='editposiAction'){
+    if(port.name=='editposiAction'){   //编辑职位
         port.onMessage.addListener(function (request) {
             if(request.code==200){
                 $.ajax({
@@ -278,20 +238,20 @@ chrome.extension.onConnect.addListener(function (port) {
                     success:function (res) {
                         port.postMessage(res)
                     },
-                })
-            }
-
-        })
+                });
+            };
+        });
     }
 
-    if(port.name=='resumeOnline'){
+    if(port.name=='resumeOnline'){    //投递职位列表
         port.onMessage.addListener(function (request) {
             $.post('https://rd2.zhaopin.com/rdapply/resumes/apply/search?SF_1_1_44=235384114&orderBy=CreateTime',request,function (res) {
                 console.log(res)
                 port.postMessage(res)
             })
         })
-    }
+    };
+
     if(port.name=='getResumeDetail'){
         port.onMessage.addListener(function (request) {
             $.get('https://'+request,function (res) {
@@ -300,6 +260,8 @@ chrome.extension.onConnect.addListener(function (port) {
         })
     }
 });
+
+//设置Referer
 var editId = 'CC455380318J90250226000';
 chrome.webRequest.onBeforeSendHeaders.addListener(
     function(details) {
@@ -369,27 +331,45 @@ chrome.webRequest.onBeforeSendHeaders.addListener(
     ["blocking", "requestHeaders"]
 );
 
-// var wR=chrome.webRequest||chrome.experimental.webRequest; //兼容17之前版本的chrome，若需要使用chrome.experimental，需要在 about:flags 中“启用“实验用。。API”
-// if(wR){
-//     wR.onBeforeSendHeaders.addListener(
-//         function(details) {
-//             if (details.type === 'xmlhttprequest') {
-//                 var exists = false;
-//                 console.log('details',details)
-//                 for (var i = 0; i < details.requestHeaders.length; ++i) {
-//                     if (details.requestHeaders[i].name === 'Referer') {
-//                         exists = true;
-//                         details.requestHeaders[i].value = 'https://jobads.zhaopin.com';
-//                         break;
-//                     }
-//                 }
-//                 if (!exists) {//不存在 Referer 就添加
-//                     details.requestHeaders.push({ name: 'Referer', value: 'https://jobads.zhaopin.com'});
-//                 }
-//                 return { requestHeaders: details.requestHeaders };
-//             }
-//         },
-//         {urls: ["https://jobads.zhaopin.com/Position/PositionReIssue"]},//匹配访问的目标url
-//         ["blocking", "requestHeaders"]
-//     );
-// }
+
+
+var positionHtml = document.createElement('div');
+positionHtml.id = 'positionHtml';
+var online = {  //在线中职位
+    pagesize:100,
+    pageindex:1,
+    status:3,
+    jobpositionType:0,
+    orderByType:1,
+    orderBy:2
+},unline={  //未上线职位
+    pagesize:100,
+    pageindex:1,
+    status:1,
+    jobpositionType:0,
+    orderByType:1,
+    orderBy:4
+},downline={  //已下线职位
+    pagesize:100,
+    pageindex:1,
+    status:4,
+    jobpositionType:0,
+    orderByType:1,
+    orderBy:3,
+    substatus:0
+},inaudit={   //审核中职位
+    pagesize:100,
+    pageindex:1,
+    status:2,
+    jobpositionType:0,
+    orderByType:1,
+    orderBy:2
+},unaudit={   //未通过中职位
+    pagesize:100,
+    pageindex:1,
+    status:6,
+    jobpositionType:0,
+    orderByType:1,
+    orderBy:2
+}
+
