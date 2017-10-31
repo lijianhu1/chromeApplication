@@ -512,6 +512,7 @@ $.get('../json/zl_citylist.json', function (res) {
 });
 $.get('../json/zl_positionType.json', function (res) {
     zl_positionType = JSON.parse(res);
+
 });
 function removeCookie() {
     chrome.cookies.remove({
@@ -545,7 +546,7 @@ chrome.extension.onConnect.addListener(function (port) {
     var screenHtml = document.createElement('div');
     screenHtml.id = 'screenHtml';
     var isDamaHtml = document.createElement('div');
-    isDamaHtml.id = 'isDamaHtml';
+    screenHtml.id = 'isDamaHtml';
     //打码
     function resumeDama(type, page) {
         damaErrTime++;
@@ -584,7 +585,7 @@ chrome.extension.onConnect.addListener(function (port) {
         if (damaErrTime <= 3&&(typeof foo=='function')) {
             var damaData = {
                 zlCookie: zlCookie,
-                type: 'position'
+                type: 'resume'
             };
             $.get(zl_Dama, damaData, function (damaRes) {
                 if (damaRes.code == 200) {

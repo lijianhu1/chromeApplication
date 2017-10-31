@@ -2,11 +2,11 @@
   "manifest_version": 2,
   "name": "亿封助手",
   "description": "方便您使用亿封简历！",
-  "version": "2.1",
+  "version": "1.0.2",
   "browser_action": {
     "default_icon": {
-      "19": "img/icon.png",
-      "38": "img/icon.png"
+      "19": "img/icon19.png",
+      "38": "img/icon38.png"
     } ,
     "default_title": "亿封助手",
     "default_popup": "popup.html"
@@ -20,26 +20,33 @@
     "scripts": [
       "js/jquery.js",
       "js/jquery.cookie.js",
-      "js/position_bg.js",
-      "js/zl_background.js"
-    ]
+      "js/zl_background.js",
+      "js/bg_zlSearch.js",
+      "js/zl_resumeInfo.js",
+      "js/position_bg.js"
+     ]
   },
 
   "permissions": [
     "*://*.zhaopin.com/*",
+    "https://rdsearch.zhaopin.com/*",
+    "http://127.0.0.1:8082/*",
     "http://*.yifengjianli.com/*",
-    "http://127.0.0.1:8081/*",
     "cookies",
     "webRequest",
     "webRequestBlocking"
   ],
   "content_scripts": [
     {
-      "matches": ["http://*.yifengjianli.com/*","http://127.0.0.1:8081/*"],
+      "matches": ["http://*.yifengjianli.com/*","http://*.yifengjianli.com/zlresume/resumedetail*","http://127.0.0.1:8082/zlresume/resumedetail*"],
       "js": ["js/jquery.js","js/jquery.cookie.js","js/action_yifeng.js"]
+    },
+    {
+      "matches": ["http://*.yifengjianli.com/cv/home","http://127.0.0.1:8082/cv/home"],
+      "js": ["js/jquery.js","js/jquery.cookie.js","js/action_zlSearch.js"]
     }
   ],
    "externally_connectable": {
-     "matches": ["http://*.yifengjianli.com/*","http://127.0.0.1:8081/*"]
+     "matches": ["http://*.yifengjianli.com/*"]
    }
 }

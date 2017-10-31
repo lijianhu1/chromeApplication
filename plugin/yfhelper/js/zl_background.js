@@ -54,8 +54,6 @@ var readyUrl = 'http://ats.yifengjianli.com/resume/exportResumeReady',
     checkPlugIns = 'http://ats.yifengjianli.com/resume/checkPlugIns';
 
 var damaTime=1;
-var isDamaHtml = document.createElement('div');
-isDamaHtml.id = 'isDamaHtml';
 chrome.extension.onConnect.addListener(function (port) {
     if (port.name == "zlAction") {
         port.onMessage.addListener(function (req) {
@@ -86,14 +84,6 @@ chrome.extension.onConnect.addListener(function (port) {
                                     console.log('无本地cookie');
                                     cookieData.set(item.zlCookie);
                                     console.log(item);
-                                    chrome.cookies.set({
-                                        'url': 'http://'+req.host,
-                                        'name': 'zl_compUserId',
-                                        'value': compUserId,
-                                        'secure': false,
-                                        'httpOnly': false
-                                    }, function (cookie) {
-                                    });
                                     chrome.cookies.set({
                                         'url': 'http://'+req.host,
                                         'name': 'zl_cookie',
@@ -143,8 +133,8 @@ chrome.extension.onConnect.addListener(function (port) {
                      url:'https://rd2.zhaopin.com/RdApply/Resumes/Resume/GetFavoriteFolderList',
                      type:'GET',
                      success:function (folderResponse) {
-
                          console.log(folderResponse);
+
                          var zlListData = {
                              favoriteId: '',
                              isTemp: 'n',
@@ -302,32 +292,21 @@ chrome.extension.onConnect.addListener(function (port) {
                                                                      $.ajax({
                                                                          url:'https://rd.zhaopin.com/resumepreview/resume/viewone/1/' + guid,
                                                                          type:'get',
-                                                                         success:function (guidRes,textStatus,conText) {
-                                                                             if(conText.status==200){
-                                                                                 $(isDamaHtml).html(guidRes);
-                                                                                 var damaText = $(isDamaHtml).find('.login-box .login-box-title').text();
-                                                                                 if(damaText){
-                                                                                     console.log('打码');
-                                                                                     clearInterval(resumeTime);
-                                                                                     if(damaTime<2){
-                                                                                         beginZl(false,true);
-                                                                                     }
-                                                                                     damaTime++;
-                                                                                     console.log("打码次数",damaTime);
-                                                                                     return;
-                                                                                 }else {
-                                                                                     resumeArr.push(guidRes);
-                                                                                     resumeCount++;  //该页简历分数自加
-                                                                                     resumeTatal += 1; //该次已导出总分数
-                                                                                 }
-                                                                             }else {
-                                                                                 clearInterval(resumeTime);
-                                                                                console.log('cookie过期');
-                                                                             }
+                                                                         success:function (guidRes) {
+                                                                             resumeArr.push(guidRes);
+                                                                             resumeCount++;  //该页简历分数自加
+                                                                             resumeTatal += 1; //该次已导出总分数
                                                                          },
                                                                          error:function (err) {
                                                                              console.log('err',err);
                                                                              clearInterval(resumeTime);
+                                                                             if(damaTime<2){
+                                                                                 beginZl(false,true);
+                                                                                 console.log('打码');
+                                                                             }
+                                                                             damaTime++;
+                                                                             console.log("打码次数",damaTime);
+                                                                             return;
                                                                          }
                                                                      });
 
@@ -356,7 +335,13 @@ chrome.extension.onConnect.addListener(function (port) {
                                                  }
                                              },
                                              error:function (err) {
-
+                                                 if(damaTime<2){
+                                                     beginZl(false,true);
+                                                     console.log('打码');
+                                                 }
+                                                 damaTime++;
+                                                 console.log("打码次数",damaTime);
+                                                 return;
                                              }
                                          });
                                      }
@@ -568,30 +553,21 @@ chrome.extension.onConnect.addListener(function (port) {
                                         $.ajax({
                                             url:'https:'+screenDetailList[screenCount],
                                             type:'GET',
-                                            success:function (res,textStatus,conText) {
-                                                if(conText.status==200){
-                                                    $(isDamaHtml).html(res);
-                                                    var damaText = $(isDamaHtml).find('.login-box .login-box-title').text();
-                                                    if (damaText) {
-                                                        clearInterval(screenTime);
-                                                        if(damaTime<2){
-                                                            beginZl(false,true);
-                                                            console.log('打码');
-                                                        }
-                                                        damaTime++;
-                                                        console.log("打码次数",damaTime);
-                                                        return;
-                                                    }else {
-                                                        var detaliData = res+'BBdateBB'+screenDate[screenCount];
-                                                        screenDetailArr.push(detaliData);
-                                                        screenCount++;
-                                                        resumeTatal += 1;
-                                                    }
-                                                }
-
+                                            success:function (res) {
+                                                var detaliData = res+'BBdateBB'+screenDate[screenCount]
+                                                screenDetailArr.push(detaliData);
+                                                screenCount++;
+                                                resumeTatal += 1;
                                             },
                                             error:function (err) {
                                                 clearInterval(screenTime);
+                                                if(damaTime<2){
+                                                    beginZl(false,true);
+                                                    console.log('打码');
+                                                }
+                                                damaTime++;
+                                                console.log("打码次数",damaTime);
+                                                return;
                                             }
                                         });
                                     }
