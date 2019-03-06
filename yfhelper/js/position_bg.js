@@ -493,6 +493,7 @@ function matchYfToZl(str, type) {
 
 var zlCookie, compUserId;
 var getPlugZlJobInfo = 'http://ats.yifengjianli.com/jobZl/getPlugZlJobInfo';//获取职位详情
+// var getPlugZlJobInfo = 'http://192.168.1.253:8080/jobZl/getPlugZlJobInfo';//获取职位详情
 var getZlJobInfo = 'http://ats.yifengjianli.com/jobZl/getZlJobInfo';//编辑职位详情
 var updateZlJobInfo = 'http://ats.yifengjianli.com/jobZl/updateZlJobInfo';//发布成功后返回
 var getCookie = 'http://www.yifengjianli.com/common/getJobZlCookie?type=zl';
@@ -983,10 +984,18 @@ chrome.extension.onConnect.addListener(function (port) {
                                         if(conText.status==200){
                                             $(positionDetailHtml).html(positionDetailRes);
                                             var damaText = $(positionDetailHtml).find('.login-box .login-box-title').text();
+                                            var wuquanxian = $(positionDetailHtml).find('.wrong_box .fs30').text();
                                             if (damaText) {
                                                 console.log('确定打码');
                                                 clearInterval(positionTime);
                                                 zlDama(getPositionList);
+                                                return;
+                                            }else if(wuquanxian.indexOf('您没有操作发布中职位的权限')!=-1){
+                                                console.log('无权限');
+                                                clearInterval(positionTime);
+                                                positionManage=unline;
+                                                getPositionList();
+                                                return;
                                             }else {
                                                 var loginPointId = $(positionDetailHtml).find('#LoginPointId').val();
                                                 // if(loginPointId){
@@ -995,6 +1004,7 @@ chrome.extension.onConnect.addListener(function (port) {
                                                     console.log(dataArr);
                                                     var positionDetailData = {};
                                                     positionDetailData.jobList = JSON.stringify(dataArr);
+                                                    positionDetailData.compUserId = compUserId;
                                                     console.log(positionDetailData);
                                                     $.ajax({
                                                         url: getPlugZlJobInfo,
@@ -1036,15 +1046,27 @@ chrome.extension.onConnect.addListener(function (port) {
 
                                                     var $positionDetailHtml = $(positionDetailHtml);
                                                     var labelArr = [];
-                                                    var welfaretab = $positionDetailHtml.find('#welfaretab').val().split(',');
-                                                    $.each(welfaretab, function (index, item) {
-                                                        labelArr.push(matchZl(item, 'welfaretab'));
-                                                    });
+                                                    // var welfaretab = $positionDetailHtml.find('#welfaretab').val().split(',');
+                                                    var welfaretab = $positionDetailHtml.find('#welfaretab').val();
+                                                    if(welfaretab){
+                                                        welfaretab=welfaretab.split(',');
+                                                        $.each(welfaretab, function (index, item) {
+                                                            labelArr.push(matchZl(item, 'welfaretab'));
+                                                        });
+                                                    }else {
+                                                        welfaretab = '0000';
+                                                    }
 
                                                     var MonthlyPay = matchZl($positionDetailHtml.find('#MonthlyPay').val(), 'monthlyPay');   //月薪
                                                     var salaryFrom = MonthlyPay.split('-')[0];
                                                     var salaryTo = MonthlyPay.split('-')[1];
                                                     var jobCityVal = $positionDetailHtml.find('#PositionPubPlace').val();
+                                                    jobCityVal = jobCityVal.split('|')[0];
+                                                    // if(jobCityVal.length>1){
+                                                    //     jobCityVal = jobCityVal[1];
+                                                    // }else {
+                                                    //     jobCityVal = jobCityVal[0];
+                                                    // }
                                                     if(jobCityVal.indexOf('@')==-1){
                                                         jobCityVal = jobCityVal
                                                     }else {
@@ -1053,8 +1075,8 @@ chrome.extension.onConnect.addListener(function (port) {
                                                     var jobCity = cityTool.getcityId(jobCityVal);
                                                     var JobDes = $positionDetailHtml.find('#JobDescription').val();
                                                     // var jobinfo = JobDes.replace(/<\/p[^>]*>/g,'\n').replace(/<br[^>]*>/g,'').replace(/&nbsp/g,'');
-                                                    var jobinfo = JobDes.replace(/<p[^>]*>/g, '').replace(/<\/p[^>]*>/g, '\n').replace(/<br[^>]*>/g, '').replace(/&nbsp;/g, '');
-
+                                                    // var jobinfo = JobDes.replace(/<p[^>]*>/g, '').replace(/<\/p[^>]*>/g, '\n').replace(/<br[^>]*>/g, '').replace(/&nbsp;/g, '');
+                                                    var jobinfo = JobDes.replace(/<.*?>/ig,"").replace(/&nbsp;/g, '').replace(/；/g,'；\n').replace(/任职资格：/g,'\n任职资格：\n').replace(/岗位职责：/,'岗位职责：\n');;
                                                     var data = {
                                                         jobId: $positionDetailHtml.find('#PositionNumber').val(), //职位id
                                                         jobStatus: $positionDetailHtml.find('#Status').val(),     //当前状态类型 3：在线中，1、未上线，4、已下线
@@ -1094,12 +1116,6 @@ chrome.extension.onConnect.addListener(function (port) {
                                                     }
 
                                                 }
-                                                // }else {
-                                                //     console.log('无权限');
-                                                //     clearInterval(positionTime);
-                                                //     positionManage = unline;
-                                                //     getPositionList();
-                                                // }
                                             }
 
                                         }else {
@@ -1162,6 +1178,7 @@ chrome.extension.onConnect.addListener(function (port) {
                     var cookieText = (request.zlCookie).split('DOUNINE').join(';');
                     cookieData.set(cookieText);
                     zlCookie = cookieText;
+                    compUserId = request.compUserId;
                     setTimeout(function () {
                         positionManage = online;
                         getPositionList();//获取职位列表数据
@@ -1170,11 +1187,11 @@ chrome.extension.onConnect.addListener(function (port) {
                     console.log('无本地cookie');
                     port.postMessage('准备拿cookie');
                     $.get(getCookie, function (cookieRes) {
-
                         if (cookieRes.code == 200) {
                             port.postMessage('准备');
                             cookieData.set(cookieRes.cookie);
                             zlCookie = cookieRes.cookie;
+                            compUserId = cookieRes.compUserId;
                             chrome.cookies.set({
                                 'url': 'http://' + currHost,
                                 'name': 'zl_cookie',
@@ -1995,6 +2012,7 @@ chrome.extension.onConnect.addListener(function (port) {
 
                 var allProvince = "广东 湖北 陕西 四川 辽宁 吉林 江苏 山东 浙江 广西 安徽 河北 山西 内蒙古 黑龙江 福建 江西 河南 湖南 海南 贵州 云南 西藏 甘肃 青海 宁夏 新疆 ";
                 cityName = cityName.split('-');
+
                 if (allProvince.indexOf(cityName[0]) != -1) {
                     cityName.shift();
                 }

@@ -69,11 +69,13 @@ $("#updatePosition").click(function () {
     var zlCookieData = {
         isGetCookie:isCookie,
         zlCookie:zlCookie,
-        host:curl
+        host:curl,
+        compUserId:$.cookie('zl_compUserId')
+
     };
     getPosiAction.postMessage(zlCookieData);
     getPosiAction.onMessage.addListener(function (res) {
-        console.log(res)
+        console.log(res);
     });
 });
 $("#addPosition").click(function () {

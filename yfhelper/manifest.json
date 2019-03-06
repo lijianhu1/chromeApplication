@@ -29,6 +29,7 @@
     "*://*.zhaopin.com/*",
     "http://*.yifengjianli.com/*",
     "http://127.0.0.1:8081/*",
+    "http://192.168.1.253/*",
     "cookies",
     "webRequest",
     "webRequestBlocking"
@@ -40,6 +41,6 @@
     }
   ],
    "externally_connectable": {
-     "matches": ["http://*.yifengjianli.com/*","http://127.0.0.1:8081/*"]
+     "matches": ["http://*.yifengjianli.com/*","http://127.0.0.1:8081/*","http://192.168.1.253/*"]
    }
 }

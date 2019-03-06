@@ -7814,6 +7814,13 @@
 	"testId": 0,
 	"childList": [
 		{
+			"value": "渝中区",
+			"testId": 99,
+			"childList": [],
+			"id": "2312",
+			"superId": "551"
+		},
+		{
 			"value": "彭水苗族土家族自治县",
 			"testId": 99,
 			"childList": [],
