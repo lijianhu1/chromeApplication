@@ -1,0 +1,56 @@
+{
+  "manifest_version": 2,
+  "name": "ivvajob助手",
+  "description": "一键导入简历至您的ivvajob招聘系统",
+  "version": "1.1.4",
+  "browser_action": {
+    "default_icon": {
+      "19": "img/icon19.png",
+      "38": "img/icon38.png"
+    } ,
+    "default_title": "ivva",
+    "default_popup": "popup.html"
+  },
+  "icons": {
+    "16": "img/icon16.png",
+    "48": "img/icon48.png",
+    "128": "img/icon128.png"
+  },
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+  "background": {
+    "scripts": [
+      "js/util/jquery.min.js",
+      "js/util/encodeToGb2312.js",
+      "js/util/tool.js",
+      "js/background.js"
+     ]
+  },
+
+  "permissions": [
+    "*://*/*",
+    "http://localhost:8080/*",
+    "cookies",
+    "webRequest",
+    "webRequestBlocking",
+    "tabs",
+    "storage"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["*://*/*"],
+      "all_frames": true,
+      "js": ["js/util/jquery.min.js","js/util/jquery.cookie.js","js/util/tool.js","js/plug_fg.js"],
+      "run_at": "document_end"
+    },
+    {
+      "matches": ["*://*.zhaopin.com/*","*://*.51job.com/*","*://*.lagou.com/*","*://*.zhipin.com/*","*://*.58.com/*","*://*.liepin.com/*","*://*.cjol.com/*","*://*.100offer.com/*","*://*.jobcn.com/*"],
+      "all_frames": true,
+      "js": ["js/util/jquery.min.js", "js/util/jquery.cookie.js", "js/util/tool.js", "js/util/html2canvas.js","js/util/Canvas2Image.js", "js/external_fg.js"],
+      "run_at": "document_end"
+    }
+  ],
+   "externally_connectable": {
+     "matches": []
+   },
+  "web_accessible_resources":["/img/*.png","js/plug_fg.js"]
+}
